@@ -52,6 +52,7 @@
     
     <Button 
         android:layout_toRightOf="@id/start"
+        android:layout_alignBaseline="@id/start"
         android:id="@+id/select"
         android:layout_width="100dp"
         android:layout_height="50dp"

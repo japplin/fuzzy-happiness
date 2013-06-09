@@ -5,18 +5,16 @@ import java.util.Collections;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
-	private ArrayList<Pair<RelativeLayout, Integer>> selectorDeck = new ArrayList<Pair<RelativeLayout, Integer>>(52);
-	private ArrayList<Pair<RelativeLayout, Integer>> shuffledDeck = new ArrayList<Pair<RelativeLayout, Integer>>(52);
+	private ArrayList<Card> selectorDeck = new ArrayList<Card>(52);
+	private ArrayList<Card> shuffledDeck = new ArrayList<Card>(52);
 	private int position = 0;
 	private boolean isRunning = false;
 
@@ -24,12 +22,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		shuffledDeck = createDeck();
 		selectorDeck = createDeck();
 		Collections.shuffle(shuffledDeck);
@@ -42,8 +34,8 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				if (!isRunning) {
 					findViewById(R.id.selector_card_container).setVisibility(View.VISIBLE);
-					for (Pair<RelativeLayout, Integer> s : shuffledDeck) {
-						s.first.findViewById(R.id.card_back).setVisibility(View.VISIBLE);
+					for (Card s : shuffledDeck) {
+						s.findViewById(R.id.card_back).setVisibility(View.VISIBLE);
 					}
 				}
 
@@ -54,21 +46,28 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				for (Pair<RelativeLayout, Integer> s : selectorDeck) {
-					if (s.first.findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
-						
-						shuffledDeck.get(position).first.findViewById(R.id.card_back).setVisibility(View.GONE);
+				for (Card s : selectorDeck) {
+					if (s.findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
+						if (shuffledDeck.get(position).getId() == s.getId()) {
+							shuffledDeck.get(position).findViewById(R.id.card_back).setVisibility(View.GONE);
+							position++;
+						}
 					}
 				}
 
 			}
 		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
-	private ArrayList<Pair<RelativeLayout, Integer>> createDeck() {
-		ArrayList<Pair<RelativeLayout, Integer>> deck = new ArrayList<Pair<RelativeLayout, Integer>>(52);
+	private ArrayList<Card> createDeck() {
+		ArrayList<Card> deck = new ArrayList<Card>(52);
 		deck.add(createCard(R.drawable.clubs_ace));
 		deck.add(createCard(R.drawable.clubs_2));
 		deck.add(createCard(R.drawable.clubs_3));
@@ -124,29 +123,30 @@ public class MainActivity extends Activity {
 		return deck;
 	}
 
-	public Pair<RelativeLayout, Integer> createCard(int id) {
-		RelativeLayout card = (RelativeLayout) getLayoutInflater().inflate(R.layout.card, null);
+	public Card createCard(int id) {
+		Card card = (Card) getLayoutInflater().inflate(R.layout.card, null);
 		ImageView cardFront = (ImageView) card.findViewById(R.id.card_front);
+		card.setId(id);
 		cardFront.setImageResource(id);
 		card.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				for (Pair<RelativeLayout, Integer> s : selectorDeck) {
-					if (s.first.findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
-						s.first.findViewById(R.id.card_selected).setVisibility(View.GONE);
+				for (Card s : selectorDeck) {
+					if (s.findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
+						s.findViewById(R.id.card_selected).setVisibility(View.GONE);
 					}
 				}
 				v.findViewById(R.id.card_selected).setVisibility(View.VISIBLE);
 			}
 		});
 
-		return new Pair<RelativeLayout, Integer>(card, id);
+		return card;
 	}
 
-	public void addDeckToLayout(ArrayList<Pair<RelativeLayout, Integer>> deck, int id) {
+	public void addDeckToLayout(ArrayList<Card> deck, int id) {
 		LinearLayout deckContainer = (LinearLayout) findViewById(id);
-		for (Pair<RelativeLayout, Integer> s : deck) {
-			deckContainer.addView(s.first);
+		for (Card s : deck) {
+			deckContainer.addView(s);
 		}
 	}
 }
