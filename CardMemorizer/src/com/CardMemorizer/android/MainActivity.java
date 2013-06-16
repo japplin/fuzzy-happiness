@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 public class MainActivity extends Activity {
 	private int deckSize;
@@ -152,5 +153,11 @@ public class MainActivity extends Activity {
 		for (Card s : deck) {
 			deckContainer.addView(s);
 		}
+	}
+	
+	public void onRadioButtonClicked(View view) {
+	    // Is the button now checked?
+	    boolean checked = ((RadioButton) view).isChecked();
+	    
 	}
 }
