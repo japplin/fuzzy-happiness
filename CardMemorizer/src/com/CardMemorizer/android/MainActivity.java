@@ -15,7 +15,6 @@ import android.widget.RadioButton;
 
 public class MainActivity extends Activity {
 	private int deckSize;
-	private ArrayList<Card> selectorDeck;
 	private ArrayList<Card> shuffledDeck;
 	private int position = 0;
 	private boolean isRunning = false;
@@ -24,13 +23,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		deckSize = 52;
-		selectorDeck = new ArrayList<Card>(deckSize);
 		shuffledDeck = new ArrayList<Card>(deckSize);
 		setContentView(R.layout.activity_main);
 		shuffledDeck = createDeck();
-		selectorDeck = createDeck();
 		Collections.shuffle(shuffledDeck);
-		addDeckToLayout(selectorDeck, R.id.selector_card_container);
 		addDeckToLayout(shuffledDeck, R.id.shuffled_card_container);
 		findViewById(R.id.selector_card_container).setVisibility(View.GONE);
 		((Button) findViewById(R.id.start)).setOnClickListener(new OnClickListener() {
@@ -41,22 +37,6 @@ public class MainActivity extends Activity {
 					findViewById(R.id.selector_card_container).setVisibility(View.VISIBLE);
 					for (Card s : shuffledDeck) {
 						s.findViewById(R.id.card_back).setVisibility(View.VISIBLE);
-					}
-				}
-
-			}
-		});
-
-		((Button) findViewById(R.id.select)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				for (Card s : selectorDeck) {
-					if (s.findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
-						if (shuffledDeck.get(position).getId() == s.getId()) {
-							shuffledDeck.get(position).findViewById(R.id.card_back).setVisibility(View.GONE);
-							position++;
-						}
 					}
 				}
 
@@ -136,11 +116,6 @@ public class MainActivity extends Activity {
 		card.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				for (Card s : selectorDeck) {
-					if (s.findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
-						s.findViewById(R.id.card_selected).setVisibility(View.GONE);
-					}
-				}
 				v.findViewById(R.id.card_selected).setVisibility(View.VISIBLE);
 			}
 		});
