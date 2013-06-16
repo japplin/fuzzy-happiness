@@ -44,7 +44,48 @@
                 android:orientation="horizontal" >
             </LinearLayout>
         </HorizontalScrollView>
+        
+        <RadioGroup
+        android:id="@+id/card_suit"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/selector_layout_container" >
+
+        <RadioButton
+            android:id="@+id/hearts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked" 
+            android:drawableRight="@drawable/hearts"/>
+
+        <RadioButton
+            android:id="@+id/diamonds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/two" />
+
+        <RadioButton
+            android:id="@+id/clubs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/three" />
+
+        <RadioButton
+            android:id="@+id/spades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/four" />
+        
+        </RadioGroup>
+        
+        
     <RadioGroup
+        android:id="@+id/card_number"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
