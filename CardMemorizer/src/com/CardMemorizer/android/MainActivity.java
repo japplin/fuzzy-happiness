@@ -13,14 +13,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class MainActivity extends Activity {
-	private ArrayList<Card> selectorDeck = new ArrayList<Card>(52);
-	private ArrayList<Card> shuffledDeck = new ArrayList<Card>(52);
+	private int deckSize;
+	private ArrayList<Card> selectorDeck;
+	private ArrayList<Card> shuffledDeck;
 	private int position = 0;
 	private boolean isRunning = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		deckSize = 52;
+		selectorDeck = new ArrayList<Card>(deckSize);
+		shuffledDeck = new ArrayList<Card>(deckSize);
 		setContentView(R.layout.activity_main);
 		shuffledDeck = createDeck();
 		selectorDeck = createDeck();
@@ -67,7 +71,7 @@ public class MainActivity extends Activity {
 	}
 
 	private ArrayList<Card> createDeck() {
-		ArrayList<Card> deck = new ArrayList<Card>(52);
+		ArrayList<Card> deck = new ArrayList<Card>(deckSize);
 		deck.add(createCard(R.drawable.clubs_ace));
 		deck.add(createCard(R.drawable.clubs_2));
 		deck.add(createCard(R.drawable.clubs_3));
