@@ -28,13 +28,11 @@ public class MainActivity extends Activity {
 		shuffledDeck = createDeck();
 		Collections.shuffle(shuffledDeck);
 		addDeckToLayout(shuffledDeck, R.id.shuffled_card_container);
-		findViewById(R.id.selector_card_container).setVisibility(View.GONE);
 		((Button) findViewById(R.id.start)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				if (!isRunning) {
-					findViewById(R.id.selector_card_container).setVisibility(View.VISIBLE);
 					for (Card s : shuffledDeck) {
 						s.findViewById(R.id.card_back).setVisibility(View.VISIBLE);
 					}
