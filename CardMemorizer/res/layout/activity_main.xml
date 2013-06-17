@@ -181,7 +181,6 @@
             android:layout_height="50dp"
             android:layout_alignBaseline="@id/start"
             android:layout_toRightOf="@id/start"
-            android:layout_below="@id/shuffled_layout_container"
             android:text="@string/select" />
     </RelativeLayout>
 
