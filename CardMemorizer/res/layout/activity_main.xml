@@ -32,7 +32,6 @@
         </HorizontalScrollView>
 
         <RadioGroup
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/card_suit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,8 +68,7 @@
         </RadioGroup>
 
         <RadioGroup
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/card_number"
+            android:id="@+id/card_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/card_suit"
@@ -173,7 +171,7 @@
             android:id="@+id/start"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_toRightOf="@id/card_number"
+            android:layout_toRightOf="@id/card_rank"
             android:layout_below="@id/shuffled_layout_container"
             android:text="@string/start" />
 
