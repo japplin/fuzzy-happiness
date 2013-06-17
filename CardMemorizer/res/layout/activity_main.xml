@@ -31,164 +31,150 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <HorizontalScrollView
-            android:id="@+id/selector_layout_container"
-            android:layout_width="fill_parent"
+        <RadioGroup
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_suit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/shuffled_layout_container" >
+            android:layout_below="@id/shuffled_layout_container"
+            android:orientation="vertical" >
 
-            <LinearLayout
-                android:id="@+id/selector_card_container"
+            <RadioButton
+                android:id="@+id/hearts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-            </LinearLayout>
-        </HorizontalScrollView>
-        
-        <RadioGroup
-        android:id="@+id/card_suit"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/selector_layout_container" >
+                android:drawableRight="@drawable/hearts"
+                android:onClick="onRadioButtonClicked" />
 
-        <RadioButton
-            android:id="@+id/hearts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked" 
-            android:drawableRight="@drawable/hearts"/>
+            <RadioButton
+                android:id="@+id/diamonds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/diamonds"
+                android:onClick="onRadioButtonClicked" />
 
-        <RadioButton
-            android:id="@+id/diamonds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/two" />
+            <RadioButton
+                android:id="@+id/clubs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/clubs"
+                android:onClick="onRadioButtonClicked" />
 
-        <RadioButton
-            android:id="@+id/clubs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/three" />
-
-        <RadioButton
-            android:id="@+id/spades"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/four" />
-        
+            <RadioButton
+                android:id="@+id/spades"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/spades"
+                android:onClick="onRadioButtonClicked" />
         </RadioGroup>
-        
-        
-    <RadioGroup
-        android:id="@+id/card_number"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/selector_layout_container" >
 
-        <RadioButton
-            android:id="@+id/ace"
+        <RadioGroup
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/ace" />
+            android:layout_toRightOf="@id/card_suit"
+            android:orientation="vertical"
+            android:layout_below="@id/shuffled_layout_container" >
 
-        <RadioButton
-            android:id="@+id/two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/two" />
+            <RadioButton
+                android:id="@+id/ace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/ace" />
 
-        <RadioButton
-            android:id="@+id/three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/three" />
+            <RadioButton
+                android:id="@+id/two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/two" />
 
-        <RadioButton
-            android:id="@+id/four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/four" />
+            <RadioButton
+                android:id="@+id/three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/three" />
 
-        <RadioButton
-            android:id="@+id/five"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/five" />
+            <RadioButton
+                android:id="@+id/four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/four" />
 
-        <RadioButton
-            android:id="@+id/six"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/six" />
+            <RadioButton
+                android:id="@+id/five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/five" />
 
-        <RadioButton
-            android:id="@+id/seven"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/seven" />
+            <RadioButton
+                android:id="@+id/six"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/six" />
 
-        <RadioButton
-            android:id="@+id/eight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/eight" />
+            <RadioButton
+                android:id="@+id/seven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/seven" />
 
-        <RadioButton
-            android:id="@+id/nine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/nine" />
+            <RadioButton
+                android:id="@+id/eight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/eight" />
 
-        <RadioButton
-            android:id="@+id/ten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/ten" />
+            <RadioButton
+                android:id="@+id/nine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/nine" />
 
-        <RadioButton
-            android:id="@+id/jack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/jack" />
+            <RadioButton
+                android:id="@+id/ten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/ten" />
 
-        <RadioButton
-            android:id="@+id/queen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/queen" />
+            <RadioButton
+                android:id="@+id/jack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/jack" />
 
-        <RadioButton
-            android:id="@+id/king"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/king" />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/queen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/queen" />
+
+            <RadioButton
+                android:id="@+id/king"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/king" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/start"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_below="@id/selector_layout_container"
+            android:layout_toRightOf="@id/card_number"
+            android:layout_below="@id/shuffled_layout_container"
             android:text="@string/start" />
 
         <Button
@@ -197,6 +183,7 @@
             android:layout_height="50dp"
             android:layout_alignBaseline="@id/start"
             android:layout_toRightOf="@id/start"
+            android:layout_below="@id/shuffled_layout_container"
             android:text="@string/select" />
     </RelativeLayout>
 
