@@ -57,6 +57,11 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
 
 	private boolean isSelectedSuit() {
 		Card selectedCard = shuffledDeck.get(selectedPosition);
@@ -234,13 +239,17 @@ public class MainActivity extends Activity {
 		card.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (v.findViewById(R.id.card_back).getVisibility() == View.VISIBLE)
-				{
+				if (v.findViewById(R.id.card_back).getVisibility() == View.VISIBLE) {
 					for (int i = 0; i < deckSize; i++) {
 						shuffledDeck.get(i).findViewById(R.id.card_selected).setVisibility(View.GONE);
 					}
 
 					v.findViewById(R.id.card_selected).setVisibility(View.VISIBLE);
+					for (int i = 0; i < deckSize; i++) {
+						if(shuffledDeck.get(i).findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
+							selectedPosition = i;
+						}
+					}
 				}
 			}
 		});
