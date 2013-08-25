@@ -1,7 +1,8 @@
 package com.CardMemorizer.android;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class Card extends RelativeLayout {
@@ -37,13 +38,37 @@ public class Card extends RelativeLayout {
 	private int id;
 	private Rank rank;
 	private Suit suit;
+	private ImageView cardBack;
+	private ImageView cardFront;
+	private ImageView cardSelected;
 
-	public Card(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public Card(Context context) {
+	public Card(Context context, int cardId, Rank rank, Suit suit) {
 		super(context);
+		this.id = cardId;
+		this.rank = rank;
+		this.suit = suit;
+		
+		cardFront = new ImageView(context);
+		cardFront.setImageResource(id);
+		addView(cardFront);
+
+		cardBack = new ImageView(context);
+		cardBack.setImageResource(R.drawable.cardback_blue);
+		cardBack.setVisibility(View.GONE);
+		cardBack.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				CardMemorizerSavedState.getInstance().unSelectSelectedCard();
+				CardMemorizerSavedState.getInstance().setSelectedCard(Card.this);
+				cardSelected.setVisibility(View.VISIBLE);
+			}
+		});
+		addView(cardBack);
+
+		cardSelected = new ImageView(context);
+		cardSelected.setImageResource(R.drawable.cardback_blue_selected);
+		cardSelected.setVisibility(View.GONE);
+		addView(cardSelected);
 
 	}
 
@@ -70,4 +95,13 @@ public class Card extends RelativeLayout {
 	public Suit getSuit() {
 		return suit;
 	}
+
+	public void shouldShowBack(boolean shouldShowBack) {
+		cardBack.setVisibility(shouldShowBack ? View.VISIBLE : View.GONE);
+	}
+
+	public void setSelectedState(boolean isSelected) {
+		cardSelected.setVisibility(isSelected ? View.VISIBLE : View.GONE);
+	}
+
 }
