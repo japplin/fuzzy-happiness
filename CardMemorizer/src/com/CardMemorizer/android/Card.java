@@ -6,11 +6,32 @@ import android.widget.RelativeLayout;
 
 public class Card extends RelativeLayout {
 	public enum Suit {
-		spades, clubs, hearts, diamonds
+		spades(R.id.spades), clubs(R.id.clubs), hearts(R.id.hearts), diamonds(R.id.diamonds);
+
+		private int id;
+
+		private Suit(int id) {
+			this.id = id;
+		}
+
+		public int getId() {
+			return id;
+		}
 	};
 
 	public enum Rank {
-		ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
+		ace(R.id.ace), two(R.id.two), three(R.id.three), four(R.id.four), five(R.id.five), six(R.id.six), seven(R.id.seven), eight(R.id.eight), nine(R.id.nine), ten(R.id.ten), jack(
+				R.id.jack), queen(R.id.queen), king(R.id.king);
+		private int id;
+
+		private Rank(int id) {
+			this.id = id;
+		}
+
+		public int getId() {
+			return id;
+		}
+
 	};
 
 	private int id;

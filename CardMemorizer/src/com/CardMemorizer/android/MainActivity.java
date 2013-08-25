@@ -15,34 +15,76 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 public class MainActivity extends Activity {
+
 	private int deckSize;
 	private ArrayList<Card> shuffledDeck;
-	private boolean isRunning = false;
-	private int selectedPosition = 0;
+	private int selectedPosition;
+	private Button startButton;
+	private Button restartButton;
+	private Button selectButton;
+	private LinearLayout container;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 		deckSize = 52;
 		shuffledDeck = new ArrayList<Card>(deckSize);
-		setContentView(R.layout.activity_main);
-		shuffledDeck = createDeck();
-		Collections.shuffle(shuffledDeck);
+		startButton = ((Button) findViewById(R.id.start));
+		restartButton = ((Button) findViewById(R.id.restart));
+		selectButton = ((Button) findViewById(R.id.select));
+		container = ((LinearLayout) findViewById(R.id.shuffled_card_container));
+
+		if (CardMemorizerSavedState.getInstance().isRunning()) {
+			shuffledDeck = new ArrayList<Card>(CardMemorizerSavedState.getInstance().getShuffledDeck());
+			selectedPosition = CardMemorizerSavedState.getInstance().getSelectedPosition();
+		} else {
+			shuffledDeck = createDeck();
+			selectedPosition = 0;
+			Collections.shuffle(shuffledDeck);
+		}
+
 		addDeckToLayout(shuffledDeck, R.id.shuffled_card_container);
-		((Button) findViewById(R.id.start)).setOnClickListener(new OnClickListener() {
+		setupButtons();
+	}
+
+	public void setupButtons() {
+		updateButtonVisibility();
+		startButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if (!isRunning) {
+				if (!CardMemorizerSavedState.getInstance().isRunning()) {
+					CardMemorizerSavedState.getInstance().setIsRunning(true);
 					for (Card s : shuffledDeck) {
 						s.findViewById(R.id.card_back).setVisibility(View.VISIBLE);
 					}
+					updateButtonVisibility();
 				}
 
 			}
 		});
 
-		((Button) findViewById(R.id.select)).setOnClickListener(new OnClickListener() {
+		restartButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Collections.shuffle(shuffledDeck);
+				container.removeAllViews();
+				for (int i = 0; i <= deckSize; i++) {
+					shuffledDeck.get(i).findViewById(R.id.card_selected).setVisibility(View.GONE);
+					shuffledDeck.get(i).findViewById(R.id.card_back).setVisibility(View.GONE);
+					container.addView(shuffledDeck.get(i));
+				}
+				
+				selectedPosition = 0;
+				CardMemorizerSavedState.getInstance().setIsRunning(false);
+				updateButtonVisibility();
+			}
+		});
+
+		selectButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -57,111 +99,31 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-	
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
+
+	private void updateButtonVisibility() {
+		startButton.setVisibility(CardMemorizerSavedState.getInstance().isRunning() ? View.GONE : View.VISIBLE);
+		restartButton.setVisibility(!CardMemorizerSavedState.getInstance().isRunning() ? View.GONE : View.VISIBLE);
+		selectButton.setVisibility(!CardMemorizerSavedState.getInstance().isRunning() ? View.GONE : View.VISIBLE);
 	}
 
 	private boolean isSelectedSuit() {
 		Card selectedCard = shuffledDeck.get(selectedPosition);
 		RadioGroup suit = (RadioGroup) findViewById(R.id.card_suit);
-		switch (suit.getCheckedRadioButtonId()) {
-		case R.id.hearts:
-			if (selectedCard.getSuit() == Card.Suit.hearts) {
-				return true;
-			}
-			break;
-		case R.id.spades:
-			if (selectedCard.getSuit() == Card.Suit.spades) {
-				return true;
-			}
-			break;
-		case R.id.clubs:
-			if (selectedCard.getSuit() == Card.Suit.clubs) {
-				return true;
-			}
-			break;
-		case R.id.diamonds:
-			if (selectedCard.getSuit() == Card.Suit.diamonds) {
-				return true;
-			}
-			break;
-		}
-		return false;
+		return suit.getCheckedRadioButtonId() == selectedCard.getSuit().getId();
 	}
 
 	private boolean isSelectedRank() {
 		Card selectedCard = shuffledDeck.get(selectedPosition);
 		RadioGroup rank = (RadioGroup) findViewById(R.id.card_rank);
-		switch (rank.getCheckedRadioButtonId()) {
-		case R.id.ace:
-			if (selectedCard.getRank() == Card.Rank.ace) {
-				return true;
-			}
-			break;
-		case R.id.two:
-			if (selectedCard.getRank() == Card.Rank.two) {
-				return true;
-			}
-			break;
-		case R.id.three:
-			if (selectedCard.getRank() == Card.Rank.three) {
-				return true;
-			}
-			break;
-		case R.id.four:
-			if (selectedCard.getRank() == Card.Rank.four) {
-				return true;
-			}
-			break;
-		case R.id.five:
-			if (selectedCard.getRank() == Card.Rank.five) {
-				return true;
-			}
-			break;
-		case R.id.six:
-			if (selectedCard.getRank() == Card.Rank.six) {
-				return true;
-			}
-			break;
-		case R.id.seven:
-			if (selectedCard.getRank() == Card.Rank.seven) {
-				return true;
-			}
-			break;
-		case R.id.eight:
-			if (selectedCard.getRank() == Card.Rank.eight) {
-				return true;
-			}
-			break;
-		case R.id.nine:
-			if (selectedCard.getRank() == Card.Rank.nine) {
-				return true;
-			}
-			break;
-		case R.id.ten:
-			if (selectedCard.getRank() == Card.Rank.ten) {
-				return true;
-			}
-			break;
-		case R.id.jack:
-			if (selectedCard.getRank() == Card.Rank.jack) {
-				return true;
-			}
-			break;
-		case R.id.queen:
-			if (selectedCard.getRank() == Card.Rank.queen) {
-				return true;
-			}
-			break;
-		case R.id.king:
-			if (selectedCard.getRank() == Card.Rank.king) {
-				return true;
-			}
-			break;
-		}
-		return false;
+		return rank.getCheckedRadioButtonId() == selectedCard.getRank().getId();
+	}
+
+	@Override
+	protected void onPause() {
+		CardMemorizerSavedState.getInstance().setSelectedPosition(selectedPosition);
+		CardMemorizerSavedState.getInstance().setShuffledDeck(shuffledDeck);
+		container.removeAllViews();
+		super.onPause();
 	}
 
 	@Override
@@ -246,7 +208,7 @@ public class MainActivity extends Activity {
 
 					v.findViewById(R.id.card_selected).setVisibility(View.VISIBLE);
 					for (int i = 0; i < deckSize; i++) {
-						if(shuffledDeck.get(i).findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
+						if (shuffledDeck.get(i).findViewById(R.id.card_selected).getVisibility() == View.VISIBLE) {
 							selectedPosition = i;
 						}
 					}
@@ -258,9 +220,8 @@ public class MainActivity extends Activity {
 	}
 
 	public void addDeckToLayout(ArrayList<Card> deck, int id) {
-		LinearLayout deckContainer = (LinearLayout) findViewById(id);
 		for (Card s : deck) {
-			deckContainer.addView(s);
+			container.addView(s);
 		}
 	}
 

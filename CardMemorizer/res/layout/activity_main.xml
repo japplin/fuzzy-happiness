@@ -71,9 +71,9 @@
             android:id="@+id/card_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/shuffled_layout_container"
             android:layout_toRightOf="@id/card_suit"
-            android:orientation="vertical"
-            android:layout_below="@id/shuffled_layout_container" >
+            android:orientation="vertical" >
 
             <RadioButton
                 android:id="@+id/ace"
@@ -167,21 +167,36 @@
                 android:text="@string/king" />
         </RadioGroup>
 
-        <Button
-            android:id="@+id/start"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_toRightOf="@id/card_rank"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/shuffled_layout_container"
-            android:text="@string/start" />
+            android:layout_toRightOf="@id/card_rank" >
 
-        <Button
-            android:id="@+id/select"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_alignBaseline="@id/start"
-            android:layout_toRightOf="@id/start"
-            android:text="@string/select" />
+            <Button
+                android:id="@+id/start"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/start" />
+
+            <Button
+                android:id="@+id/select"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/select" />
+
+            <Button
+                android:id="@+id/restart"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/select"
+                android:text="@string/restart" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </ScrollView>

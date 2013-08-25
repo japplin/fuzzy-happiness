@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="shuffled">Shuffled!</string>
     <string name="start">Start</string>
+    <string name="restart">Restart</string>
     <string name="select">Select</string>
     <string name="ace">A</string>
     <string name="two">2</string>
