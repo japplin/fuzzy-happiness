@@ -5,6 +5,8 @@ import java.util.Collections;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +23,7 @@ public class MainActivity extends Activity {
 	private Button restartButton;
 	private Button selectButton;
 	private LinearLayout deckContainer;
+	private DrawerLayout drawer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,9 @@ public class MainActivity extends Activity {
 		restartButton = ((Button) findViewById(R.id.restart));
 		selectButton = ((Button) findViewById(R.id.select));
 		deckContainer = ((LinearLayout) findViewById(R.id.shuffled_card_container));
+		drawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
 
+		drawer.openDrawer(Gravity.LEFT);
 		if (CardMemorizerSavedState.getInstance().isRunning()) {
 			deck = new ArrayList<Card>(CardMemorizerSavedState.getInstance().getShuffledDeck());
 		} else {
@@ -73,7 +78,7 @@ public class MainActivity extends Activity {
 					card.shouldShowBack(false);
 					deckContainer.addView(card);
 				}
-				
+
 				CardMemorizerSavedState.getInstance().setIsRunning(false);
 				updateButtonVisibility();
 			}
@@ -185,7 +190,7 @@ public class MainActivity extends Activity {
 			deckContainer.addView(s);
 		}
 	}
-	
+
 	public void onRadioButtonClicked(View view) {
 		// Is the button now checked?
 		boolean checked = ((RadioButton) view).isChecked();
