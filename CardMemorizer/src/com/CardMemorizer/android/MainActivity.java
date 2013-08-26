@@ -49,6 +49,8 @@ public class MainActivity extends Activity {
 		setupButtons();
 	}
 
+	
+	
 	public void setupButtons() {
 		updateButtonVisibility();
 		startButton.setOnClickListener(new OnClickListener() {
@@ -192,8 +194,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void onRadioButtonClicked(View view) {
-		// Is the button now checked?
-		boolean checked = ((RadioButton) view).isChecked();
+		((RadioButton) view).isChecked();
 
 	}
 }

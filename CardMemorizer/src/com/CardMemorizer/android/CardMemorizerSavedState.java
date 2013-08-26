@@ -6,7 +6,6 @@ public class CardMemorizerSavedState {
 
 	private static CardMemorizerSavedState instance;
 	private ArrayList<Card> shuffledDeck;
-	private ArrayList<Card> selectorDeck;
 	private boolean isRunning = false;
 	private Card selectedCard;
 
@@ -33,16 +32,8 @@ public class CardMemorizerSavedState {
 		this.shuffledDeck = shuffledDeck;
 	}
 
-	public void setSelectorDeck(ArrayList<Card> selectorDeck) {
-		this.selectorDeck = selectorDeck;
-	}
-
 	public ArrayList<Card> getShuffledDeck() {
 		return shuffledDeck != null ? shuffledDeck : null;
-	}
-
-	public ArrayList<Card> getSelectorDeck() {
-		return selectorDeck != null ? selectorDeck : null;
 	}
 	
 	public Card getSelectedCard() {
