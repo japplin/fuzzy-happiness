@@ -21,5 +21,6 @@
     <string name="jack">J</string>
     <string name="queen">Q</string>
     <string name="king">K</string>
+    <string name="new_game">New Game</string>
 
 </resources>
