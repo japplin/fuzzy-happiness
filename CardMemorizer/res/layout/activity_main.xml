@@ -228,7 +228,7 @@
                 android:id="@+id/chkhearts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="false"
                 android:drawableRight="@drawable/hearts" />
 
             <CheckBox
@@ -236,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/chkhearts"
-                android:checked="true"
+                android:checked="false"
                 android:drawableRight="@drawable/diamonds" />
 
             <CheckBox
@@ -244,7 +244,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/chkdiamonds"
-                android:checked="true"
+                android:checked="false"
                 android:drawableRight="@drawable/clubs" />
 
             <CheckBox
@@ -252,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/chkclubs"
-                android:checked="true"
+                android:checked="false"
                 android:drawableRight="@drawable/spades" />
 
             <NumberPicker
