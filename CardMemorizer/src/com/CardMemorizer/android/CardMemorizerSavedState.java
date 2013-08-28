@@ -35,11 +35,11 @@ public class CardMemorizerSavedState {
 	public ArrayList<Card> getShuffledDeck() {
 		return shuffledDeck != null ? shuffledDeck : null;
 	}
-	
+
 	public Card getSelectedCard() {
 		return selectedCard;
 	}
-	
+
 	public void setSelectedCard(Card selectedCard) {
 		this.selectedCard = selectedCard;
 	}

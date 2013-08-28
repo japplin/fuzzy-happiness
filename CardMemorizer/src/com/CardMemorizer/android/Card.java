@@ -47,7 +47,7 @@ public class Card extends RelativeLayout {
 		this.id = cardId;
 		this.rank = rank;
 		this.suit = suit;
-		
+
 		cardFront = new ImageView(context);
 		cardFront.setImageResource(id);
 		addView(cardFront);
