@@ -203,6 +203,15 @@
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@id/select"
                     android:text="@string/restart" />
+                
+               <!--  <Button
+                    android:id="@+id/backToMain"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/restart"
+                    android:text="@string/main_menu" />
+                 -->
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
@@ -224,50 +233,7 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingTop="@dimen/activity_vertical_margin" >
 
-            <CheckBox
-                android:id="@+id/chkhearts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:drawableRight="@drawable/hearts" />
-
-            <CheckBox
-                android:id="@+id/chkdiamonds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/chkhearts"
-                android:checked="false"
-                android:drawableRight="@drawable/diamonds" />
-
-            <CheckBox
-                android:id="@+id/chkclubs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/chkdiamonds"
-                android:checked="false"
-                android:drawableRight="@drawable/clubs" />
-
-            <CheckBox
-                android:id="@+id/chkspades"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/chkclubs"
-                android:checked="false"
-                android:drawableRight="@drawable/spades" />
-
-            <NumberPicker
-                android:id="@+id/np"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/chkhearts"
-                android:width="100dip" />
-
-            <Button
-                android:id="@+id/new_game"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/np"
-                android:text="@string/new_game" />
+            
         </RelativeLayout>
     </ScrollView>
 
