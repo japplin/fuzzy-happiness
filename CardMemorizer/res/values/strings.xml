@@ -22,5 +22,6 @@
     <string name="queen">Q</string>
     <string name="king">K</string>
     <string name="new_game">New Game</string>
+    <string name="main_menu">Main Menu</string>
 
 </resources>
