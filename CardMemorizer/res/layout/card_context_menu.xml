@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RadioGroup
+        android:id="@+id/card_suit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grid_view"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/hearts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/hearts" />
+
+        <RadioButton
+            android:id="@+id/diamonds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/diamonds" />
+
+        <RadioButton
+            android:id="@+id/clubs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/clubs" />
+
+        <RadioButton
+            android:id="@+id/spades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/spades" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/card_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grid_view"
+        android:layout_toRightOf="@id/card_suit"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/ace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ace" />
+
+        <RadioButton
+            android:id="@+id/two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/two" />
+
+        <RadioButton
+            android:id="@+id/three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/three" />
+
+        <RadioButton
+            android:id="@+id/four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/four" />
+
+        <RadioButton
+            android:id="@+id/five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/five" />
+
+        <RadioButton
+            android:id="@+id/six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/six" />
+
+        <RadioButton
+            android:id="@+id/seven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seven" />
+
+        <RadioButton
+            android:id="@+id/eight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eight" />
+
+        <RadioButton
+            android:id="@+id/nine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nine" />
+
+        <RadioButton
+            android:id="@+id/ten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ten" />
+
+        <RadioButton
+            android:id="@+id/jack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/jack" />
+
+        <RadioButton
+            android:id="@+id/queen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/queen" />
+
+        <RadioButton
+            android:id="@+id/king"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/king" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/select"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/card_rank"
+        android:text="@string/select" />
+
+</RelativeLayout>

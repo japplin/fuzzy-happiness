@@ -1,6 +1,7 @@
 package com.CardMemorizer.android;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -41,13 +42,15 @@ public class Card extends RelativeLayout {
 	private ImageView cardBack;
 	private ImageView cardFront;
 	private ImageView cardSelected;
+	private final Context context;
 
-	public Card(Context context, Rank rank, Suit suit) {
+	public Card(final Context context, Rank rank, Suit suit) {
 		super(context);
 		this.rank = rank;
 		this.suit = suit;
 		this.id = getImageId(suit, rank);
-
+		this.context = context;
+		setGravity(Gravity.CENTER);
 		cardFront = new ImageView(context);
 		cardFront.setImageResource(id);
 		addView(cardFront);
@@ -55,14 +58,7 @@ public class Card extends RelativeLayout {
 		cardBack = new ImageView(context);
 		cardBack.setImageResource(R.drawable.cardback_blue);
 		cardBack.setVisibility(View.GONE);
-		cardBack.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				CardMemorizerSavedState.getInstance().unSelectSelectedCard();
-				CardMemorizerSavedState.getInstance().setSelectedCard(Card.this);
-				cardSelected.setVisibility(View.VISIBLE);
-			}
-		});
+
 		addView(cardBack);
 
 		cardSelected = new ImageView(context);
@@ -98,6 +94,10 @@ public class Card extends RelativeLayout {
 
 	public void shouldShowBack(boolean shouldShowBack) {
 		cardBack.setVisibility(shouldShowBack ? View.VISIBLE : View.GONE);
+	}
+	
+	public boolean isBackShowing() {
+		return cardBack.getVisibility() == View.VISIBLE;
 	}
 
 	public void setSelectedState(boolean isSelected) {
