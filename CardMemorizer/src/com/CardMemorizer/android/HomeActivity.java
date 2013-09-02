@@ -1,7 +1,6 @@
 package com.CardMemorizer.android;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,9 +22,10 @@ import com.CardMemorizer.android.Card.Suit;
 
 public class HomeActivity extends Activity {
 
+	public static final String DECK_INFO = "DECK_INFO";
 	private NumberPicker numberPicker;
 
-	private ArrayList<Card> deck;
+	private ArrayList<CardInfo> deck;
 	private Set<Suit> suitsInDeck = new HashSet<Suit>(Suit.values().length);
 	private Set<Rank> ranksInDeck = new HashSet<Rank>(Rank.values().length);
 
@@ -36,48 +36,60 @@ public class HomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_page);
 
-		deckSize = calculateDeckSize();
-		deck = new ArrayList<Card>(deckSize);
-
 		((CheckBox) findViewById(R.id.chkhearts)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.hearts));
 		((CheckBox) findViewById(R.id.chkdiamonds)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.diamonds));
 		((CheckBox) findViewById(R.id.chkclubs)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.clubs));
 		((CheckBox) findViewById(R.id.chkspades)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.spades));
 
+		addRankCheckBoxes();
 		numberPicker = (NumberPicker) findViewById(R.id.np);
 		numberPicker.setOnValueChangedListener(new OnValueChangeListener() {
 
 			@Override
 			public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-				ranksInDeck = new HashSet<Rank>(Arrays.asList(Rank.values()).subList(0, newVal));
-				deckSize = calculateDeckSize();
+				deckSize = newVal;
 			}
 		});
 
-		numberPicker.setMaxValue(Rank.values().length);
+		numberPicker.setMaxValue(52);
 		numberPicker.setMinValue(1);
 
 		((Button) findViewById(R.id.new_game)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
 				deck = createDeck();
 				Collections.shuffle(deck);
+				Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+				intent.putParcelableArrayListExtra(DECK_INFO, deck);
 
-				CardMemorizerSavedState.getInstance().setShuffledDeck(deck);
-
-				HomeActivity.this.startActivity(new Intent(HomeActivity.this, MainActivity.class));
+				HomeActivity.this.startActivity(intent);
 			}
 		});
 	}
 
-	private ArrayList<Card> createDeck() {
-		ArrayList<Card> deck = new ArrayList<Card>(deckSize);
+	private void addRankCheckBoxes() {
+		((CheckBox) findViewById(R.id.ace)).setOnCheckedChangeListener(createRankCheckChanged(Rank.ace));
+		((CheckBox) findViewById(R.id.two)).setOnCheckedChangeListener(createRankCheckChanged(Rank.two));
+		((CheckBox) findViewById(R.id.three)).setOnCheckedChangeListener(createRankCheckChanged(Rank.three));
+		((CheckBox) findViewById(R.id.four)).setOnCheckedChangeListener(createRankCheckChanged(Rank.four));
+		((CheckBox) findViewById(R.id.five)).setOnCheckedChangeListener(createRankCheckChanged(Rank.five));
+		((CheckBox) findViewById(R.id.six)).setOnCheckedChangeListener(createRankCheckChanged(Rank.six));
+		((CheckBox) findViewById(R.id.seven)).setOnCheckedChangeListener(createRankCheckChanged(Rank.seven));
+		((CheckBox) findViewById(R.id.eight)).setOnCheckedChangeListener(createRankCheckChanged(Rank.eight));
+		((CheckBox) findViewById(R.id.nine)).setOnCheckedChangeListener(createRankCheckChanged(Rank.nine));
+		((CheckBox) findViewById(R.id.ten)).setOnCheckedChangeListener(createRankCheckChanged(Rank.ten));
+		((CheckBox) findViewById(R.id.jack)).setOnCheckedChangeListener(createRankCheckChanged(Rank.jack));
+		((CheckBox) findViewById(R.id.queen)).setOnCheckedChangeListener(createRankCheckChanged(Rank.queen));
+		((CheckBox) findViewById(R.id.king)).setOnCheckedChangeListener(createRankCheckChanged(Rank.king));
+	}
+
+	private ArrayList<CardInfo> createDeck() {
+		ArrayList<CardInfo> deck = new ArrayList<CardInfo>(deckSize);
 
 		for (Rank rank : ranksInDeck) {
 			for (Suit suit : suitsInDeck) {
-				deck.add(new Card(this, rank, suit));
+				deck.add(new CardInfo(suit, rank, false));
 				if (deck.size() == deckSize) {
 					return deck;
 				}
@@ -111,14 +123,8 @@ public class HomeActivity extends Activity {
 				} else {
 					suitsInDeck.remove(suit);
 				}
-
-				deckSize = calculateDeckSize();
 			}
 		};
-
 	}
-
-	private int calculateDeckSize() {
-		return ranksInDeck.size() * suitsInDeck.size();
-	}
+	
 }

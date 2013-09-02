@@ -4,28 +4,22 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 public class CardGridViewAdapter extends BaseAdapter {
-	private ArrayList<Card> deck;
+	private ArrayList<CardInfo> deck;
 	private final Context context;
 
-	public CardGridViewAdapter(final Context context, ArrayList<Card> deck) {
+	public CardGridViewAdapter(final Context context, ArrayList<CardInfo> deck) {
 		this.deck = deck;
 		this.context = context;
 
-		for (final Card card : deck) {
-			card.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (card.isBackShowing()) {
-						new CardSelectionDialog(context, card).show();
-					}
-				}
-			});
-		}
+	}
+
+	public void setData(ArrayList<CardInfo> deck) {
+		this.deck = deck;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -34,18 +28,27 @@ public class CardGridViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Card getItem(int position) {
+	public CardInfo getItem(int position) {
 		return deck.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return deck.get(position).getId();
+		return -1l;
 	}
 
 	@Override
 	public Card getView(int position, View convertView, ViewGroup parent) {
-		return deck.get(position);
-	}
+		Card card;
+		CardInfo cardInfo = getItem(position);
 
+		if (convertView == null) {
+			card = new Card(context, cardInfo);
+		} else {
+			card = (Card) convertView;
+			card.setCardInfo(cardInfo);
+		}
+
+		return card;
+	}
 }

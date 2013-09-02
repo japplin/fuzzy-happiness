@@ -30,7 +30,6 @@ public class CardSelectionDialog extends Dialog {
 
 	private void flipCard() {
 		card.shouldShowBack(false);
-		card.setSelectedState(false);
 	}
 
 	private boolean isSelectedSuit() {

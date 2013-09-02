@@ -1,13 +1,16 @@
 package com.CardMemorizer.android;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class CardMemorizerSavedState {
 
 	private static CardMemorizerSavedState instance;
-	private ArrayList<Card> shuffledDeck;
 	private boolean isRunning = false;
-	private Card selectedCard;
+	HashMap<Integer, Bitmap> imageCache = new HashMap<Integer, Bitmap>();
 
 	public synchronized static CardMemorizerSavedState getInstance() {
 		if (instance == null) {
@@ -28,26 +31,13 @@ public class CardMemorizerSavedState {
 		this.isRunning = isRunning;
 	}
 
-	public void setShuffledDeck(ArrayList<Card> shuffledDeck) {
-		this.shuffledDeck = shuffledDeck;
-	}
-
-	public ArrayList<Card> getShuffledDeck() {
-		return shuffledDeck != null ? shuffledDeck : null;
-	}
-
-	public Card getSelectedCard() {
-		return selectedCard;
-	}
-
-	public void setSelectedCard(Card selectedCard) {
-		this.selectedCard = selectedCard;
-	}
-
-	public void unSelectSelectedCard() {
-		if (selectedCard != null) {
-			this.selectedCard.setSelectedState(false);
+	public Bitmap getImageFromCache(int id, Context context) {
+		Bitmap bitmap = imageCache.get(id);
+		if (bitmap == null) {
+			bitmap = BitmapFactory.decodeResource(context.getResources(), id);
+			imageCache.put(id, bitmap);
 		}
+		return bitmap;
 	}
 
 }

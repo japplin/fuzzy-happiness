@@ -24,6 +24,7 @@ public class Card extends RelativeLayout {
 	public enum Rank {
 		ace(R.id.ace), two(R.id.two), three(R.id.three), four(R.id.four), five(R.id.five), six(R.id.six), seven(R.id.seven), eight(R.id.eight), nine(R.id.nine), ten(R.id.ten), jack(
 				R.id.jack), queen(R.id.queen), king(R.id.king);
+
 		private int id;
 
 		private Rank(int id) {
@@ -37,77 +38,62 @@ public class Card extends RelativeLayout {
 	};
 
 	private int id;
-	private Rank rank;
-	private Suit suit;
+	private CardInfo cardInfo;
 	private ImageView cardBack;
 	private ImageView cardFront;
-	private ImageView cardSelected;
 	private final Context context;
 
-	public Card(final Context context, Rank rank, Suit suit) {
+	public Card(final Context context, CardInfo cardInfo) {
 		super(context);
-		this.rank = rank;
-		this.suit = suit;
-		this.id = getImageId(suit, rank);
 		this.context = context;
 		setGravity(Gravity.CENTER);
+
 		cardFront = new ImageView(context);
-		cardFront.setImageResource(id);
-		addView(cardFront);
-
 		cardBack = new ImageView(context);
-		cardBack.setImageResource(R.drawable.cardback_blue);
-		cardBack.setVisibility(View.GONE);
 
+		cardBack.setImageResource(R.drawable.cardback_blue);
+		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
+
+		setCardInfo(cardInfo);
+		addView(cardFront);
 		addView(cardBack);
 
-		cardSelected = new ImageView(context);
-		cardSelected.setImageResource(R.drawable.cardback_blue_selected);
-		cardSelected.setVisibility(View.GONE);
-		addView(cardSelected);
+		setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (Card.this.cardInfo.isBackShowing()) {
+					new CardSelectionDialog(Card.this.context, Card.this).show();
+				}
+			}
+		});
 
 	}
+	
+	public void setCardInfo(CardInfo cardInfo) {
+		this.cardInfo = cardInfo;
+		this.id = getImageId();
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setRank(Rank rank) {
-		this.rank = rank;
+		cardFront.setImageBitmap(CardMemorizerSavedState.getInstance().getImageFromCache(id, context));
+		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
 	}
 
 	public Rank getRank() {
-		return rank;
-	}
-
-	public void setSuit(Suit suit) {
-		this.suit = suit;
+		return cardInfo.getRank();
 	}
 
 	public Suit getSuit() {
-		return suit;
+		return cardInfo.getSuit();
 	}
 
 	public void shouldShowBack(boolean shouldShowBack) {
-		cardBack.setVisibility(shouldShowBack ? View.VISIBLE : View.GONE);
-	}
-	
-	public boolean isBackShowing() {
-		return cardBack.getVisibility() == View.VISIBLE;
+		cardInfo.isBackShowing(shouldShowBack);
+		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
 	}
 
-	public void setSelectedState(boolean isSelected) {
-		cardSelected.setVisibility(isSelected ? View.VISIBLE : View.GONE);
-	}
-
-	private int getImageId(Suit suit, Rank rank) {
-		switch (rank) {
+	private int getImageId() {
+		switch (cardInfo.getRank()) {
 		case ace:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_ace;
 			case diamonds:
@@ -118,7 +104,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_ace;
 			}
 		case eight:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_8;
 			case diamonds:
@@ -129,7 +115,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_9;
 			}
 		case five:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_5;
 			case diamonds:
@@ -140,7 +126,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_5;
 			}
 		case four:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_4;
 			case diamonds:
@@ -151,7 +137,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_4;
 			}
 		case jack:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_jack;
 			case diamonds:
@@ -162,7 +148,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_jack;
 			}
 		case king:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_king;
 			case diamonds:
@@ -173,7 +159,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_king;
 			}
 		case nine:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_9;
 			case diamonds:
@@ -184,7 +170,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_9;
 			}
 		case queen:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_queen;
 			case diamonds:
@@ -195,7 +181,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_queen;
 			}
 		case seven:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_7;
 			case diamonds:
@@ -206,7 +192,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_7;
 			}
 		case six:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_6;
 			case diamonds:
@@ -217,7 +203,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_6;
 			}
 		case ten:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_10;
 			case diamonds:
@@ -228,7 +214,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_10;
 			}
 		case three:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_3;
 			case diamonds:
@@ -239,7 +225,7 @@ public class Card extends RelativeLayout {
 				return R.drawable.spades_3;
 			}
 		case two:
-			switch (suit) {
+			switch (cardInfo.getSuit()) {
 			case clubs:
 				return R.drawable.clubs_2;
 			case diamonds:

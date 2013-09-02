@@ -3,6 +3,7 @@ package com.CardMemorizer.android;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -20,26 +21,29 @@ public class MainActivity extends Activity {
 	private Button startButton;
 	private Button restartButton;
 
-	private ArrayList<Card> deck;
+	private ArrayList<CardInfo> deck;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Intent intent = getIntent();
 
 		gridView = ((GridView) findViewById(R.id.grid_view));
 		drawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
 		startButton = ((Button) drawer.findViewById(R.id.start));
 		restartButton = ((Button) drawer.findViewById(R.id.restart));
-		
-		deck = new ArrayList<Card>(CardMemorizerSavedState.getInstance().getShuffledDeck());
 
+		if (deck == null ) {
+			deck = intent.getParcelableArrayListExtra(HomeActivity.DECK_INFO);
+		} 
+		
 		adapter = new CardGridViewAdapter(this, deck);
-		gridView.setColumnWidth(deck.get(0).getWidth());
+		gridView.setColumnWidth(175);
 		gridView.setAdapter(adapter);
 		setupButtons();
 	}
-	
+
 	public void setupButtons() {
 		startButton.setOnClickListener(new OnClickListener() {
 
@@ -47,11 +51,11 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				if (!CardMemorizerSavedState.getInstance().isRunning()) {
 					CardMemorizerSavedState.getInstance().setIsRunning(true);
-					for (Card card : deck) {
-						card.shouldShowBack(true);
+					for (CardInfo card : deck) {
+						card.isBackShowing(true);
 					}
+					adapter.notifyDataSetChanged();
 				}
-
 			}
 		});
 
@@ -59,18 +63,30 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				for (Card card : deck) {
-					card.shouldShowBack(false);
+				for (CardInfo card : deck) {
+					card.isBackShowing(false);
 				}
-
+				adapter.notifyDataSetChanged();
 				CardMemorizerSavedState.getInstance().setIsRunning(false);
 			}
 		});
 	}
 
 	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		deck = savedInstanceState.getParcelableArrayList(HomeActivity.DECK_INFO);
+		adapter.setData(deck);
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelableArrayList(HomeActivity.DECK_INFO, deck);
+		super.onSaveInstanceState(outState);
+	}
+	
+	@Override
 	protected void onPause() {
-		CardMemorizerSavedState.getInstance().setShuffledDeck(deck);
 		super.onPause();
 	}
 
