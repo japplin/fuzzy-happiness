@@ -3,10 +3,15 @@ package com.CardMemorizer.android;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class Card extends RelativeLayout {
+public class Card extends RelativeLayout implements AnimationListener {
 	public enum Suit {
 		spades(R.id.spades), clubs(R.id.clubs), hearts(R.id.hearts), diamonds(R.id.diamonds);
 
@@ -42,11 +47,20 @@ public class Card extends RelativeLayout {
 	private ImageView cardBack;
 	private ImageView cardFront;
 	private final Context context;
+	private Animation cardOutAnimation;
+	private Animation cardInAnimation;
 
 	public Card(final Context context, CardInfo cardInfo) {
 		super(context);
 		this.context = context;
 		setGravity(Gravity.CENTER);
+
+		cardOutAnimation = AnimationUtils.loadAnimation(context, R.anim.card_flip_out);
+		cardOutAnimation.setAnimationListener(this);
+		cardOutAnimation.setInterpolator(new AccelerateInterpolator());
+
+		cardInAnimation = AnimationUtils.loadAnimation(context, R.anim.card_flip_in);
+		cardInAnimation.setInterpolator(new DecelerateInterpolator());
 
 		cardFront = new ImageView(context);
 		cardBack = new ImageView(context);
@@ -66,15 +80,18 @@ public class Card extends RelativeLayout {
 				}
 			}
 		});
-
 	}
-	
+
 	public void setCardInfo(CardInfo cardInfo) {
 		this.cardInfo = cardInfo;
 		this.id = getImageId();
 
 		cardFront.setImageBitmap(CardMemorizerSavedState.getInstance().getImageFromCache(id, context));
-		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
+		shouldShowBack(cardInfo.isBackShowing());
+	}
+
+	public void flip() {
+		cardBack.startAnimation(cardOutAnimation);
 	}
 
 	public Rank getRank() {
@@ -88,6 +105,7 @@ public class Card extends RelativeLayout {
 	public void shouldShowBack(boolean shouldShowBack) {
 		cardInfo.isBackShowing(shouldShowBack);
 		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
+		cardFront.setVisibility(cardInfo.isBackShowing() ? View.GONE : View.VISIBLE);
 	}
 
 	private int getImageId() {
@@ -237,6 +255,26 @@ public class Card extends RelativeLayout {
 			}
 		}
 		return 0;
+	}
+
+	@Override
+	public void onAnimationStart(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		shouldShowBack(false);
+
+		cardFront.startAnimation(cardInAnimation);
+
+	}
+
+	@Override
+	public void onAnimationRepeat(Animation animation) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
