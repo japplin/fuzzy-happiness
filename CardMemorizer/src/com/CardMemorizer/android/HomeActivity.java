@@ -43,6 +43,8 @@ public class HomeActivity extends Activity {
 
 		addRankCheckBoxes();
 		numberPicker = (NumberPicker) findViewById(R.id.np);
+		numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
 		numberPicker.setOnValueChangedListener(new OnValueChangeListener() {
 
 			@Override
@@ -126,5 +128,5 @@ public class HomeActivity extends Activity {
 			}
 		};
 	}
-	
+
 }
