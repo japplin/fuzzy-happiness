@@ -29,5 +29,8 @@
     <string name="spades">Spades</string>
     <string name="new_game">New Game</string>
     <string name="main_menu">Main Menu</string>
+    <string name="levels">Levels</string>
+    <string name="about">About</string>
+    <string name="custom_game">Custom</string>
 
 </resources>

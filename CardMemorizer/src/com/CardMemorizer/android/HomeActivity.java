@@ -1,134 +1,41 @@
 package com.CardMemorizer.android;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.NumberPicker;
-import android.widget.NumberPicker.OnValueChangeListener;
-
-import com.CardMemorizer.android.Card.Rank;
-import com.CardMemorizer.android.Card.Suit;
 
 public class HomeActivity extends Activity {
-
-	public static final String DECK_INFO = "DECK_INFO";
-	private NumberPicker numberPicker;
-
-	private ArrayList<CardInfo> deck;
-	private Set<Suit> suitsInDeck = new HashSet<Suit>(Suit.values().length);
-	private Set<Rank> ranksInDeck = new HashSet<Rank>(Rank.values().length);
-
-	private int deckSize;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_page);
-
-		((CheckBox) findViewById(R.id.chkhearts)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.hearts));
-		((CheckBox) findViewById(R.id.chkdiamonds)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.diamonds));
-		((CheckBox) findViewById(R.id.chkclubs)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.clubs));
-		((CheckBox) findViewById(R.id.chkspades)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.spades));
-
-		addRankCheckBoxes();
-		numberPicker = (NumberPicker) findViewById(R.id.np);
-		numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-
-		numberPicker.setOnValueChangedListener(new OnValueChangeListener() {
-
-			@Override
-			public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-				deckSize = newVal;
-			}
-		});
-
-		numberPicker.setMaxValue(208);
-		numberPicker.setMinValue(1);
-
-		((Button) findViewById(R.id.new_game)).setOnClickListener(new OnClickListener() {
+		((Button) findViewById(R.id.level_mode)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				deck = createDeck();
-				Collections.shuffle(deck);
-				Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-				intent.putParcelableArrayListExtra(DECK_INFO, deck);
-
-				HomeActivity.this.startActivity(intent);
+				startActivity(new Intent(HomeActivity.this, LevelBrowser.class));
 			}
 		});
-	}
 
-	private void addRankCheckBoxes() {
-		((CheckBox) findViewById(R.id.ace)).setOnCheckedChangeListener(createRankCheckChanged(Rank.ace));
-		((CheckBox) findViewById(R.id.two)).setOnCheckedChangeListener(createRankCheckChanged(Rank.two));
-		((CheckBox) findViewById(R.id.three)).setOnCheckedChangeListener(createRankCheckChanged(Rank.three));
-		((CheckBox) findViewById(R.id.four)).setOnCheckedChangeListener(createRankCheckChanged(Rank.four));
-		((CheckBox) findViewById(R.id.five)).setOnCheckedChangeListener(createRankCheckChanged(Rank.five));
-		((CheckBox) findViewById(R.id.six)).setOnCheckedChangeListener(createRankCheckChanged(Rank.six));
-		((CheckBox) findViewById(R.id.seven)).setOnCheckedChangeListener(createRankCheckChanged(Rank.seven));
-		((CheckBox) findViewById(R.id.eight)).setOnCheckedChangeListener(createRankCheckChanged(Rank.eight));
-		((CheckBox) findViewById(R.id.nine)).setOnCheckedChangeListener(createRankCheckChanged(Rank.nine));
-		((CheckBox) findViewById(R.id.ten)).setOnCheckedChangeListener(createRankCheckChanged(Rank.ten));
-		((CheckBox) findViewById(R.id.jack)).setOnCheckedChangeListener(createRankCheckChanged(Rank.jack));
-		((CheckBox) findViewById(R.id.queen)).setOnCheckedChangeListener(createRankCheckChanged(Rank.queen));
-		((CheckBox) findViewById(R.id.king)).setOnCheckedChangeListener(createRankCheckChanged(Rank.king));
-	}
-
-	private ArrayList<CardInfo> createDeck() {
-		ArrayList<CardInfo> deck = new ArrayList<CardInfo>(deckSize);
-
-		while (deck.size() < deckSize) {
-			OUTER_LOOP: for (Rank rank : ranksInDeck) {
-				for (Suit suit : suitsInDeck) {
-					deck.add(new CardInfo(suit, rank, false));
-					if (deck.size() == deckSize) {
-						break OUTER_LOOP;
-					}
-				}
-			}
-		}
-		return deck;
-	}
-
-	private OnCheckedChangeListener createRankCheckChanged(final Rank rank) {
-		return new OnCheckedChangeListener() {
+		((Button) findViewById(R.id.custom_mode)).setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					ranksInDeck.add(rank);
-				} else {
-					ranksInDeck.remove(rank);
-				}
+			public void onClick(View v) {
+				startActivity(new Intent(HomeActivity.this, CustomGameCreation.class));
 			}
-		};
+		});
 
-	}
-
-	private OnCheckedChangeListener createSuitCheckChanged(final Suit suit) {
-		return new OnCheckedChangeListener() {
+		((Button) findViewById(R.id.about)).setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					suitsInDeck.add(suit);
-				} else {
-					suitsInDeck.remove(suit);
-				}
+			public void onClick(View v) {
+				startActivity(new Intent(HomeActivity.this, AboutPage.class));
 			}
-		};
-	}
+		});
 
+	}
 }

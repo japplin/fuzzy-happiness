@@ -23,6 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.CardMemorizer.android.MainActivity" />
+        <activity android:name="com.CardMemorizer.android.LevelBrowser" />
+        <activity android:name="com.CardMemorizer.android.CustomGameCreation" />
+        <activity android:name="com.CardMemorizer.android.AboutPage" />
     </application>
 
 </manifest>

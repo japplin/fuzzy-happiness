@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 		restartButton = ((Button) drawer.findViewById(R.id.restart));
 
 		if (deck == null ) {
-			deck = intent.getParcelableArrayListExtra(HomeActivity.DECK_INFO);
+			deck = intent.getParcelableArrayListExtra(CustomGameCreation.DECK_INFO);
 		} 
 		
 		adapter = new CardGridViewAdapter(this, deck);
@@ -74,14 +74,14 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		deck = savedInstanceState.getParcelableArrayList(HomeActivity.DECK_INFO);
+		deck = savedInstanceState.getParcelableArrayList(CustomGameCreation.DECK_INFO);
 		adapter.setData(deck);
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		outState.putParcelableArrayList(HomeActivity.DECK_INFO, deck);
+		outState.putParcelableArrayList(CustomGameCreation.DECK_INFO, deck);
 		super.onSaveInstanceState(outState);
 	}
 	
