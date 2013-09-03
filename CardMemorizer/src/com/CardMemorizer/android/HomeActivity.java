@@ -53,7 +53,7 @@ public class HomeActivity extends Activity {
 			}
 		});
 
-		numberPicker.setMaxValue(52);
+		numberPicker.setMaxValue(208);
 		numberPicker.setMinValue(1);
 
 		((Button) findViewById(R.id.new_game)).setOnClickListener(new OnClickListener() {
@@ -89,11 +89,13 @@ public class HomeActivity extends Activity {
 	private ArrayList<CardInfo> createDeck() {
 		ArrayList<CardInfo> deck = new ArrayList<CardInfo>(deckSize);
 
-		for (Rank rank : ranksInDeck) {
-			for (Suit suit : suitsInDeck) {
-				deck.add(new CardInfo(suit, rank, false));
-				if (deck.size() == deckSize) {
-					return deck;
+		while (deck.size() < deckSize) {
+			OUTER_LOOP: for (Rank rank : ranksInDeck) {
+				for (Suit suit : suitsInDeck) {
+					deck.add(new CardInfo(suit, rank, false));
+					if (deck.size() == deckSize) {
+						break OUTER_LOOP;
+					}
 				}
 			}
 		}
