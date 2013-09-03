@@ -27,7 +27,7 @@ public class Level {
 		return ranks;
 	}
 
-	public int getDeckSoze() {
+	public int getDeckSize() {
 		return deckSize;
 	}
 
