@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 
 public class Card extends RelativeLayout implements AnimationListener {
 	public enum Suit {
-		spades(R.id.spades), clubs(R.id.clubs), hearts(R.id.hearts), diamonds(R.id.diamonds);
+		spades(R.string.spades), clubs(R.string.clubs), hearts(R.string.hearts), diamonds(R.string.diamonds);
 
 		private int id;
 
@@ -27,8 +27,8 @@ public class Card extends RelativeLayout implements AnimationListener {
 	};
 
 	public enum Rank {
-		ace(R.id.ace), two(R.id.two), three(R.id.three), four(R.id.four), five(R.id.five), six(R.id.six), seven(R.id.seven), eight(R.id.eight), nine(R.id.nine), ten(R.id.ten), jack(
-				R.id.jack), queen(R.id.queen), king(R.id.king);
+		ace(R.string.ace), two(R.string.two), three(R.string.three), four(R.string.four), five(R.string.five), six(R.string.six), seven(R.string.seven), eight(R.string.eight), nine(
+				R.string.nine), ten(R.string.ten), jack(R.string.jack), queen(R.string.queen), king(R.string.king);
 
 		private int id;
 
