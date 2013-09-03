@@ -7,6 +7,8 @@
     <string name="shuffled">Shuffled!</string>
     <string name="start">Start</string>
     <string name="restart">Restart</string>
+    <string name="card_selection_dialog_title">Select the correct Rank and Suit.</string>
+    <string name="cancel">Cancel</string>
     <string name="select">Select</string>
     <string name="ace">A</string>
     <string name="two">2</string>

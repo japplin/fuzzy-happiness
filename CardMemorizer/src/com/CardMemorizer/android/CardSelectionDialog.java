@@ -1,14 +1,15 @@
 package com.CardMemorizer.android;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
-import android.view.View;
-import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 
-public class CardSelectionDialog extends Dialog {
-	Button select;
+public class CardSelectionDialog extends AlertDialog implements OnClickListener {
+	
 	Card card;
 	NumberPicker suitList;
 	NumberPicker rankList;
@@ -20,33 +21,27 @@ public class CardSelectionDialog extends Dialog {
 		super(context);
 		this.card = card;
 		this.context = context;
-		setContentView(R.layout.card_context_menu);
-		setTitle("Title...");
 
 		Resources r = context.getResources();
+		RelativeLayout dialogContent = (RelativeLayout) getLayoutInflater().inflate(R.layout.card_context_menu, null);
 
-		suitList = (NumberPicker) findViewById(R.id.suit_picker);
+		setView(dialogContent);
+		setTitle(R.string.card_selection_dialog_title);
+
+		suitList = (NumberPicker) dialogContent.findViewById(R.id.suit_picker);
 		suitValues = new String[] { r.getString(R.string.hearts), r.getString(R.string.clubs), r.getString(R.string.diamonds), r.getString(R.string.spades),
 				r.getString(R.string.hearts), r.getString(R.string.clubs), r.getString(R.string.diamonds), r.getString(R.string.spades) };
 		setupNumberPicker(suitList, suitValues);
 
-		rankList = (NumberPicker) findViewById(R.id.rank_picker);
+		rankList = (NumberPicker) dialogContent.findViewById(R.id.rank_picker);
 		rankValues = new String[] { r.getString(R.string.ace), r.getString(R.string.two), r.getString(R.string.three), r.getString(R.string.four), r.getString(R.string.five),
 				r.getString(R.string.six), r.getString(R.string.seven), r.getString(R.string.eight), r.getString(R.string.nine), r.getString(R.string.ten),
 				r.getString(R.string.jack), r.getString(R.string.queen), r.getString(R.string.king) };
 		setupNumberPicker(rankList, rankValues);
-		
-		select = (Button) findViewById(R.id.select);
-		select.setOnClickListener(new android.view.View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				if (isSelectedSuit() && isSelectedRank()) {
-					flipCard();
-				}
-				dismiss();
-			}
-		});
+		setButton(BUTTON_POSITIVE, r.getString(R.string.select), this);
+		setButton(BUTTON_NEGATIVE, r.getString(R.string.cancel), this);
+
 	}
 
 	private void setupNumberPicker(NumberPicker numberPicker, String[] values) {
@@ -65,6 +60,16 @@ public class CardSelectionDialog extends Dialog {
 
 	private boolean isSelectedRank() {
 		return rankValues[rankList.getValue()].equals(context.getResources().getString(card.getRank().getId()));
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		if (which == BUTTON_POSITIVE) {
+			if (isSelectedSuit() && isSelectedRank()) {
+				flipCard();
+			}
+		}
+		dismiss();
 	}
 
 }

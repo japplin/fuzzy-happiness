@@ -1,12 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:layout_gravity="center" >
+
+    <View
+        android:id="@+id/center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true" />
 
     <NumberPicker
         android:id="@+id/suit_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/center"
         android:layout_alignParentTop="true"
         android:layout_margin="15dp"
         android:width="100dip" />
@@ -17,14 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_margin="15dp"
-        android:layout_toRightOf="@id/suit_picker"
+        android:layout_toRightOf="@id/center"
         android:width="100dip" />
-
-    <Button
-        android:id="@+id/select"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_toRightOf="@id/rank_picker"
-        android:text="@string/select" />
 
 </RelativeLayout>
