@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +26,7 @@ public class CustomGameCreation extends Activity {
 	private Set<Suit> suitsInDeck = new HashSet<Suit>(Suit.values().length);
 	private Set<Rank> ranksInDeck = new HashSet<Rank>(Rank.values().length);
 
-	private int deckSize;
+	private int deckSize = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +57,23 @@ public class CustomGameCreation extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Level customLevel = new Level(suitsInDeck, ranksInDeck, deckSize);
-				CardMemorizerSavedState.getInstance().loadLevel(customLevel, CustomGameCreation.this);
+				if (suitsInDeck.isEmpty() || ranksInDeck.isEmpty()) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(CustomGameCreation.this);
+					builder.setTitle(R.string.custom_game_start_title);
+					builder.setMessage(R.string.custom_game_start_message);
+					builder.setNegativeButton(R.string.ok, new android.content.DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+
+					});
+					builder.create().show();
+				} else {
+					Level customLevel = new Level(suitsInDeck, ranksInDeck, deckSize);
+					CardMemorizerSavedState.getInstance().loadLevel(customLevel, CustomGameCreation.this);
+				}
 			}
 		});
 	}

@@ -1,12 +1,16 @@
 package com.CardMemorizer.android;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,7 +20,9 @@ public class MainActivity extends Activity {
 
 	private GridView gridView;
 	private CardGridViewAdapter adapter;
+
 	private DrawerLayout drawer;
+	private ActionBarDrawerToggle mDrawerToggle;
 
 	private Button startButton;
 	private Button restartButton;
@@ -34,17 +40,40 @@ public class MainActivity extends Activity {
 		startButton = ((Button) drawer.findViewById(R.id.start));
 		restartButton = ((Button) drawer.findViewById(R.id.restart));
 
-		if (deck == null ) {
+		drawer.openDrawer(Gravity.LEFT);
+		mDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
+
+			public void onDrawerClosed(View view) {
+				getActionBar().setTitle(R.string.app_name);
+			}
+
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setTitle(R.string.app_name);
+			}
+		};
+
+		drawer.setDrawerListener(mDrawerToggle);
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+
+		if (deck == null) {
 			deck = intent.getParcelableArrayListExtra(CustomGameCreation.DECK_INFO);
-		} 
-		
+		}
+
 		adapter = new CardGridViewAdapter(this, deck);
 		gridView.setColumnWidth(175);
 		gridView.setAdapter(adapter);
 		setupButtons();
 	}
 
-	public void setupButtons() {
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+
+	private void setupButtons() {
 		startButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -54,6 +83,7 @@ public class MainActivity extends Activity {
 					for (CardInfo card : deck) {
 						card.isBackShowing(true);
 					}
+					drawer.closeDrawers();
 					adapter.notifyDataSetChanged();
 				}
 			}
@@ -67,9 +97,16 @@ public class MainActivity extends Activity {
 					card.isBackShowing(false);
 				}
 				adapter.notifyDataSetChanged();
+				Collections.shuffle(deck);
 				CardMemorizerSavedState.getInstance().setIsRunning(false);
 			}
 		});
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
 	@Override
@@ -78,23 +115,25 @@ public class MainActivity extends Activity {
 		adapter.setData(deck);
 		super.onRestoreInstanceState(savedInstanceState);
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putParcelableArrayList(CustomGameCreation.DECK_INFO, deck);
 		super.onSaveInstanceState(outState);
 	}
-	
+
 	@Override
-	protected void onPause() {
-		super.onPause();
+	protected void onDestroy() {
+		super.onDestroy();
+		CardMemorizerSavedState.getInstance().setIsRunning(false);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
 
+		return super.onOptionsItemSelected(item);
+	}
 }
