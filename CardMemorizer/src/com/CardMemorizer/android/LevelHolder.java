@@ -15,6 +15,7 @@ public class LevelHolder {
 		tempSet.add(Suit.hearts);
 		L1s = Collections.unmodifiableSet(tempSet);
 	}
+
 	private final static Set<Rank> L1r;
 	static {
 		final Set<Rank> tempSet = getRankRange(3);
