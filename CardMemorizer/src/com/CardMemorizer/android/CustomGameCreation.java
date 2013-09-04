@@ -1,6 +1,5 @@
 package com.CardMemorizer.android;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +21,6 @@ public class CustomGameCreation extends Activity {
 	public static final String DECK_INFO = "DECK_INFO";
 	private NumberPicker numberPicker;
 
-	private ArrayList<CardInfo> deck;
 	private Set<Suit> suitsInDeck = new HashSet<Suit>(Suit.values().length);
 	private Set<Rank> ranksInDeck = new HashSet<Rank>(Rank.values().length);
 

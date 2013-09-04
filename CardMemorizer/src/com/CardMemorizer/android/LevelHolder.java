@@ -1,5 +1,6 @@
 package com.CardMemorizer.android;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -338,9 +339,9 @@ public class LevelHolder {
 		return temprankarray;
 	}
 
-	public Set<Level> getLevels() {
+	public ArrayList<Level> getLevels() {
 
-		Set<Level> templevelarray = new HashSet<Level>();
+		ArrayList<Level> templevelarray = new ArrayList<Level>();
 
 		templevelarray.add(level1);
 		templevelarray.add(level2);
