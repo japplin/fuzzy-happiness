@@ -9,7 +9,7 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
 public class CardSelectionDialog extends AlertDialog implements OnClickListener {
-	
+
 	Card card;
 	NumberPicker suitList;
 	NumberPicker rankList;
@@ -53,7 +53,7 @@ public class CardSelectionDialog extends AlertDialog implements OnClickListener 
 	private void flipCard() {
 		card.flip();
 	}
-	
+
 	private void shakeCard() {
 		card.shake();
 	}
@@ -70,12 +70,24 @@ public class CardSelectionDialog extends AlertDialog implements OnClickListener 
 	public void onClick(DialogInterface dialog, int which) {
 		if (which == BUTTON_POSITIVE) {
 			if (isSelectedSuit() && isSelectedRank()) {
+				CardMemorizerSavedState.getInstance().setCorrectGuesses(CardMemorizerSavedState.getInstance().getCorrectGuesses() + 1);
+
+				if (CardMemorizerSavedState.getInstance().getCorrectGuesses() == CardMemorizerSavedState.getInstance().getCurLevelDeckSize()) {
+					// game win dialog
+				}
+
 				flipCard();
 			} else {
 				shakeCard();
+				if (!(CardMemorizerSavedState.getInstance().getGuessesLeft() == -2)) {
+					CardMemorizerSavedState.getInstance().setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
+
+					if (CardMemorizerSavedState.getInstance().getGuessesLeft() == -1) {
+						// game over dialog
+					}
+				}
 			}
 		}
 		dismiss();
 	}
-
 }
