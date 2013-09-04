@@ -1,24 +1,22 @@
 package com.CardMemorizer.android;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.CardMemorizer.android.Card.Rank;
-import com.CardMemorizer.android.Card.Suit;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.NumberPicker;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
+
+import com.CardMemorizer.android.Card.Rank;
+import com.CardMemorizer.android.Card.Suit;
 
 public class CustomGameCreation extends Activity {
 	public static final String DECK_INFO = "DECK_INFO";
@@ -59,12 +57,8 @@ public class CustomGameCreation extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				deck = createDeck();
-				Collections.shuffle(deck);
-				Intent intent = new Intent(CustomGameCreation.this, MainActivity.class);
-				intent.putParcelableArrayListExtra(DECK_INFO, deck);
-
-				CustomGameCreation.this.startActivity(intent);
+				Level customLevel = new Level(suitsInDeck, ranksInDeck, deckSize);
+				CardMemorizerSavedState.getInstance().loadLevel(customLevel, CustomGameCreation.this);
 			}
 		});
 	}
@@ -83,22 +77,6 @@ public class CustomGameCreation extends Activity {
 		((CheckBox) findViewById(R.id.jack)).setOnCheckedChangeListener(createRankCheckChanged(Rank.jack));
 		((CheckBox) findViewById(R.id.queen)).setOnCheckedChangeListener(createRankCheckChanged(Rank.queen));
 		((CheckBox) findViewById(R.id.king)).setOnCheckedChangeListener(createRankCheckChanged(Rank.king));
-	}
-
-	private ArrayList<CardInfo> createDeck() {
-		ArrayList<CardInfo> deck = new ArrayList<CardInfo>(deckSize);
-
-		while (deck.size() < deckSize) {
-			OUTER_LOOP: for (Rank rank : ranksInDeck) {
-				for (Suit suit : suitsInDeck) {
-					deck.add(new CardInfo(suit, rank, false));
-					if (deck.size() == deckSize) {
-						break OUTER_LOOP;
-					}
-				}
-			}
-		}
-		return deck;
 	}
 
 	private OnCheckedChangeListener createRankCheckChanged(final Rank rank) {
