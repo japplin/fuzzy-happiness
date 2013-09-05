@@ -53,6 +53,10 @@ public class CardSelectionDialog extends AlertDialog implements OnClickListener 
 	private void flipCard() {
 		card.flip();
 	}
+	
+	private void shakeCard() {
+		card.shake();
+	}
 
 	private boolean isSelectedSuit() {
 		return suitValues[suitList.getValue()].equals(context.getResources().getString(card.getSuit().getId()));
@@ -67,6 +71,8 @@ public class CardSelectionDialog extends AlertDialog implements OnClickListener 
 		if (which == BUTTON_POSITIVE) {
 			if (isSelectedSuit() && isSelectedRank()) {
 				flipCard();
+			} else {
+				shakeCard();
 			}
 		}
 		dismiss();

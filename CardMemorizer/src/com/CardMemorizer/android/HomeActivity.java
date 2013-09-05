@@ -1,5 +1,8 @@
 package com.CardMemorizer.android;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +39,16 @@ public class HomeActivity extends Activity {
 				startActivity(new Intent(HomeActivity.this, AboutPage.class));
 			}
 		});
-
+		int errorCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this)) {
+		case ConnectionResult.SUCCESS:
+			break;
+		case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
+		case ConnectionResult.SERVICE_DISABLED:
+			GooglePlayServicesUtil.getErrorDialog(errorCode, this, -1);
+			break;
+		default:
+			break;
+		}
 	}
 }

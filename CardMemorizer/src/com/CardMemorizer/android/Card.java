@@ -1,6 +1,7 @@
 package com.CardMemorizer.android;
 
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -49,12 +50,16 @@ public class Card extends RelativeLayout implements AnimationListener {
 	private final Context context;
 	private Animation cardOutAnimation;
 	private Animation cardInAnimation;
+	private Animation cardShakeAnimation;
 
 	public Card(final Context context, CardInfo cardInfo) {
 		super(context);
 		this.context = context;
 		setGravity(Gravity.CENTER);
 
+		cardShakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+		
+		
 		cardOutAnimation = AnimationUtils.loadAnimation(context, R.anim.card_flip_out);
 		cardOutAnimation.setAnimationListener(this);
 		cardOutAnimation.setInterpolator(new AccelerateInterpolator());
@@ -88,6 +93,13 @@ public class Card extends RelativeLayout implements AnimationListener {
 
 		cardFront.setImageBitmap(CardMemorizerSavedState.getInstance().getImageFromCache(id, context));
 		shouldShowBack(cardInfo.isBackShowing());
+	}
+
+	public void shake() {
+		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+		// Vibrate for 500 milliseconds
+		v.vibrate(250);
+		cardBack.startAnimation(cardShakeAnimation);
 	}
 
 	public void flip() {
@@ -130,7 +142,7 @@ public class Card extends RelativeLayout implements AnimationListener {
 			case hearts:
 				return R.drawable.hearts_8;
 			case spades:
-				return R.drawable.spades_9;
+				return R.drawable.spades_8;
 			}
 		case five:
 			switch (cardInfo.getSuit()) {
