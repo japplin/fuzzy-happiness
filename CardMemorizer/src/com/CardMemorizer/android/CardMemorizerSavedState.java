@@ -17,6 +17,11 @@ public class CardMemorizerSavedState {
 
 	private static CardMemorizerSavedState instance;
 	private boolean isRunning = false;
+
+	private int guessesLeft;
+	private int correctGuesses;
+	private int curLevelDeckSize;
+
 	HashMap<Integer, Bitmap> imageCache = new HashMap<Integer, Bitmap>();
 
 	public synchronized static CardMemorizerSavedState getInstance() {
@@ -38,6 +43,30 @@ public class CardMemorizerSavedState {
 		this.isRunning = isRunning;
 	}
 
+	public void setGuessesLeft(int guessesLeft) {
+		this.guessesLeft = guessesLeft;
+	}
+
+	public void setCorrectGuesses(int correctGuesses) {
+		this.correctGuesses = correctGuesses;
+	}
+
+	public void setCurLevelDeckSize(int curLevelDeckSize) {
+		this.curLevelDeckSize = curLevelDeckSize;
+	}
+
+	public int getGuessesLeft() {
+		return guessesLeft;
+	}
+
+	public int getCorrectGuesses() {
+		return correctGuesses;
+	}
+
+	public int getCurLevelDeckSize() {
+		return curLevelDeckSize;
+	}
+
 	public Bitmap getImageFromCache(int id, Context context) {
 		Bitmap bitmap = imageCache.get(id);
 		if (bitmap == null) {
@@ -50,6 +79,9 @@ public class CardMemorizerSavedState {
 	public void loadLevel(Level curLevel, Activity activity) {
 
 		ArrayList<CardInfo> deck = createDeck(curLevel);
+		setGuessesLeft(curLevel.getGuesses());
+		setCorrectGuesses(0);
+		setCurLevelDeckSize(curLevel.getDeckSize());
 		Collections.shuffle(deck);
 		Intent intent = new Intent(activity, MainActivity.class);
 		intent.putParcelableArrayListExtra(CustomGameCreation.DECK_INFO, deck);

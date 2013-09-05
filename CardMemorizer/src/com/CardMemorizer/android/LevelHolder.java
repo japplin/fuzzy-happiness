@@ -23,8 +23,9 @@ public class LevelHolder {
 	}
 
 	private final int L1d = 3;
+	private final int L1g = 5;
 
-	Level level1 = new Level(L1s, L1r, L1d);
+	Level level1 = new Level(L1s, L1r, L1d, L1g);
 
 	// ****
 
@@ -42,8 +43,9 @@ public class LevelHolder {
 	}
 
 	private final int L2d = 3;
+	private final int L2g = 5;
 
-	Level level2 = new Level(L2s, L2r, L2d);
+	Level level2 = new Level(L2s, L2r, L2d, L2g);
 
 	// ****
 
@@ -60,8 +62,9 @@ public class LevelHolder {
 	}
 
 	private final int L3d = 4;
+	private final int L3g = 5;
 
-	Level level3 = new Level(L3s, L3r, L3d);
+	Level level3 = new Level(L3s, L3r, L3d, L3g);
 
 	// ****
 
@@ -79,8 +82,9 @@ public class LevelHolder {
 	}
 
 	private final int L4d = 4;
+	private final int L4g = 5;
 
-	Level level4 = new Level(L4s, L4r, L4d);
+	Level level4 = new Level(L4s, L4r, L4d, L4g);
 
 	// ****
 
@@ -97,8 +101,9 @@ public class LevelHolder {
 	}
 
 	private final int L5d = 6;
+	private final int L5g = 5;
 
-	Level level5 = new Level(L5s, L5r, L5d);
+	Level level5 = new Level(L5s, L5r, L5d, L5g);
 
 	// ****
 
@@ -116,8 +121,9 @@ public class LevelHolder {
 	}
 
 	private final int L6d = 6;
+	private final int L6g = 5;
 
-	Level level6 = new Level(L6s, L6r, L6d);
+	Level level6 = new Level(L6s, L6r, L6d, L6g);
 
 	// ****
 
@@ -134,8 +140,9 @@ public class LevelHolder {
 	}
 
 	private final int L7d = 8;
+	private final int L7g = 5;
 
-	Level level7 = new Level(L7s, L7r, L7d);
+	Level level7 = new Level(L7s, L7r, L7d, L7g);
 
 	// ****
 
@@ -153,8 +160,9 @@ public class LevelHolder {
 	}
 
 	private final int L8d = 8;
+	private final int L8g = 5;
 
-	Level level8 = new Level(L8s, L8r, L8d);
+	Level level8 = new Level(L8s, L8r, L8d, L8g);
 
 	// ****
 
@@ -174,8 +182,9 @@ public class LevelHolder {
 	}
 
 	private final int L9d = 8;
+	private final int L9g = 5;
 
-	Level level9 = new Level(L9s, L9r, L9d);
+	Level level9 = new Level(L9s, L9r, L9d, L9g);
 
 	// ****
 
@@ -192,8 +201,9 @@ public class LevelHolder {
 	}
 
 	private final int L10d = 10;
+	private final int L10g = 5;
 
-	Level level10 = new Level(L10s, L10r, L10d);
+	Level level10 = new Level(L10s, L10r, L10d, L10g);
 
 	// ****
 
@@ -211,8 +221,9 @@ public class LevelHolder {
 	}
 
 	private final int L11d = 10;
+	private final int L11g = 5;
 
-	Level level11 = new Level(L11s, L11r, L11d);
+	Level level11 = new Level(L11s, L11r, L11d, L11g);
 
 	// ****
 
@@ -232,8 +243,9 @@ public class LevelHolder {
 	}
 
 	private final int L12d = 10;
+	private final int L12g = 5;
 
-	Level level12 = new Level(L12s, L12r, L12d);
+	Level level12 = new Level(L12s, L12r, L12d, L12g);
 
 	// ****
 
@@ -250,8 +262,9 @@ public class LevelHolder {
 	}
 
 	private final int L13d = 13;
+	private final int L13g = 5;
 
-	Level level13 = new Level(L13s, L13r, L13d);
+	Level level13 = new Level(L13s, L13r, L13d, L13g);
 
 	// ****
 
@@ -269,8 +282,9 @@ public class LevelHolder {
 	}
 
 	private final int L14d = 13;
+	private final int L14g = 5;
 
-	Level level14 = new Level(L14s, L14r, L14d);
+	Level level14 = new Level(L14s, L14r, L14d, L14g);
 
 	// ****
 
@@ -290,8 +304,9 @@ public class LevelHolder {
 	}
 
 	private final int L15d = 13;
+	private final int L15g = 5;
 
-	Level level15 = new Level(L15s, L15r, L15d);
+	Level level15 = new Level(L15s, L15r, L15d, L15g);
 
 	private static Set<Rank> getRankRange(int range) {
 		Set<Rank> temprankarray = new HashSet<Rank>();
