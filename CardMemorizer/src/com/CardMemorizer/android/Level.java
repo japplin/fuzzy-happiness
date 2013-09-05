@@ -13,10 +13,13 @@ public class Level {
 
 	private int deckSize;
 
-	public Level(Set<Suit> suits, Set<Rank> ranks, int deckSize) {
+	private int guesses;
+
+	public Level(Set<Suit> suits, Set<Rank> ranks, int deckSize, int guesses) {
 		this.suits = suits;
 		this.ranks = ranks;
 		this.deckSize = deckSize;
+		this.guesses = guesses;
 	}
 
 	public Set<Suit> getSuits() {
@@ -29,6 +32,10 @@ public class Level {
 
 	public int getDeckSize() {
 		return deckSize;
+	}
+
+	public int getGuesses() {
+		return guesses;
 	}
 
 }

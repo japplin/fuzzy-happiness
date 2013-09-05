@@ -29,6 +29,8 @@ public class MainActivity extends Activity {
 
 	private ArrayList<CardInfo> deck;
 
+	public static final int UNLIMITED_GUESSES = -2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
