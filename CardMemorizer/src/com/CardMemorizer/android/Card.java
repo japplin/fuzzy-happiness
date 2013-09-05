@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 public class Card extends RelativeLayout implements AnimationListener {
 	public enum Suit {
-		spades(R.string.spades), clubs(R.string.clubs), hearts(R.string.hearts), diamonds(R.string.diamonds);
+		spades(R.string.spades), hearts(R.string.hearts), clubs(R.string.clubs), diamonds(R.string.diamonds);
 
 		private int id;
 
@@ -58,8 +58,7 @@ public class Card extends RelativeLayout implements AnimationListener {
 		setGravity(Gravity.CENTER);
 
 		cardShakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-		
-		
+
 		cardOutAnimation = AnimationUtils.loadAnimation(context, R.anim.card_flip_out);
 		cardOutAnimation.setAnimationListener(this);
 		cardOutAnimation.setInterpolator(new AccelerateInterpolator());
@@ -97,7 +96,6 @@ public class Card extends RelativeLayout implements AnimationListener {
 
 	public void shake() {
 		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-		// Vibrate for 500 milliseconds
 		v.vibrate(250);
 		cardBack.startAnimation(cardShakeAnimation);
 	}

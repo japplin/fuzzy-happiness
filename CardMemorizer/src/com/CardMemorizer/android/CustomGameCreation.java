@@ -71,7 +71,7 @@ public class CustomGameCreation extends Activity {
 					});
 					builder.create().show();
 				} else {
-					Level customLevel = new Level(suitsInDeck, ranksInDeck, deckSize, MainActivity.UNLIMITED_GUESSES);
+					Level customLevel = new Level(suitsInDeck, ranksInDeck, deckSize, MainActivity.UNLIMITED_GUESSES, Level.CUSTOM_LEVEL);
 					CardMemorizerSavedState.getInstance().loadLevel(customLevel, CustomGameCreation.this);
 				}
 			}

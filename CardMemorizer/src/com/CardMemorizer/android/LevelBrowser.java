@@ -13,8 +13,7 @@ public class LevelBrowser extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.level_browser);
-		LevelHolder holder = new LevelHolder();
-		adapter = new LevelAdapter(this, holder.getLevels());
+		adapter = new LevelAdapter(this, LevelHolder.getInstance().getLevels());
 		levelGrid = (GridView) findViewById(R.id.level_grid);
 
 		levelGrid.setAdapter(adapter);
