@@ -84,11 +84,11 @@ public class CardMemorizerSavedState {
 		setCurLevelDeckSize(curLevel.getDeckSize());
 		Collections.shuffle(deck);
 		Intent intent = new Intent(activity, MainActivity.class);
-		intent.putParcelableArrayListExtra(CustomGameCreation.DECK_INFO, deck);
-
+		intent.putParcelableArrayListExtra(MainActivity.DECK_INFO, deck);
+		intent.putExtra(MainActivity.LEVEL_INFO, curLevel.getLevelId());
 		activity.startActivity(intent);
 	}
-
+	
 	private ArrayList<CardInfo> createDeck(Level curLevel) {
 		ArrayList<CardInfo> deck = new ArrayList<CardInfo>(curLevel.getDeckSize());
 

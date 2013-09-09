@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import android.widget.GridView;
 
 public class MainActivity extends Activity {
 
+	public static final String DECK_INFO = "DECK_INFO";
+	public static final String LEVEL_INFO = "LEVEL_INFO";
 	private GridView gridView;
 	private CardGridViewAdapter adapter;
 
@@ -26,7 +30,7 @@ public class MainActivity extends Activity {
 
 	private Button startButton;
 	private Button restartButton;
-
+	private Level level;
 	private ArrayList<CardInfo> deck;
 
 	public static final int UNLIMITED_GUESSES = -2;
@@ -36,6 +40,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Intent intent = getIntent();
+		this.level = LevelHolder.getInstance().getLevel(intent.getIntExtra(LEVEL_INFO, LevelHolder.CUSTOM_GAME));
 
 		gridView = ((GridView) findViewById(R.id.grid_view));
 		drawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
@@ -60,10 +65,37 @@ public class MainActivity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 
 		if (deck == null) {
-			deck = intent.getParcelableArrayListExtra(CustomGameCreation.DECK_INFO);
+			deck = intent.getParcelableArrayListExtra(DECK_INFO);
 		}
 
-		adapter = new CardGridViewAdapter(this, deck);
+		adapter = new CardGridViewAdapter(this, deck, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				CardSelectionDialog selectionDialog = (CardSelectionDialog) dialog;
+				if (which == AlertDialog.BUTTON_POSITIVE) {
+					if (selectionDialog.isSelectedCard()) {
+						selectionDialog.flipCard();
+						CardMemorizerSavedState.getInstance().setCorrectGuesses(CardMemorizerSavedState.getInstance().getCorrectGuesses() + 1);
+
+						if (CardMemorizerSavedState.getInstance().getCorrectGuesses() == CardMemorizerSavedState.getInstance().getCurLevelDeckSize()) {
+							level.setLevelCompleted();
+						}
+
+					} else {
+						selectionDialog.shakeCard();
+						if (!(CardMemorizerSavedState.getInstance().getGuessesLeft() == -2)) {
+							CardMemorizerSavedState.getInstance().setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
+
+							if (CardMemorizerSavedState.getInstance().getGuessesLeft() == -1) {
+
+							}
+						}
+					}
+				}
+				dialog.dismiss();
+			}
+		});
 		gridView.setColumnWidth(175);
 		gridView.setAdapter(adapter);
 		setupButtons();
@@ -113,14 +145,14 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		deck = savedInstanceState.getParcelableArrayList(CustomGameCreation.DECK_INFO);
+		deck = savedInstanceState.getParcelableArrayList(DECK_INFO);
 		adapter.setData(deck);
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		outState.putParcelableArrayList(CustomGameCreation.DECK_INFO, deck);
+		outState.putParcelableArrayList(DECK_INFO, deck);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -138,4 +170,5 @@ public class MainActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+
 }

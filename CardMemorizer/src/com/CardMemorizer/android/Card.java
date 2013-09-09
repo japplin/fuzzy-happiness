@@ -1,5 +1,6 @@
 package com.CardMemorizer.android;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Vibrator;
 import android.view.Gravity;
@@ -47,27 +48,27 @@ public class Card extends RelativeLayout implements AnimationListener {
 	private CardInfo cardInfo;
 	private ImageView cardBack;
 	private ImageView cardFront;
-	private final Context context;
+	private Activity activity;
 	private Animation cardOutAnimation;
 	private Animation cardInAnimation;
 	private Animation cardShakeAnimation;
 
-	public Card(final Context context, CardInfo cardInfo) {
-		super(context);
-		this.context = context;
+	public Card(final Activity activity, CardInfo cardInfo) {
+		super(activity);
+		this.activity = activity;
 		setGravity(Gravity.CENTER);
 
-		cardShakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+		cardShakeAnimation = AnimationUtils.loadAnimation(activity, R.anim.shake);
 
-		cardOutAnimation = AnimationUtils.loadAnimation(context, R.anim.card_flip_out);
+		cardOutAnimation = AnimationUtils.loadAnimation(activity, R.anim.card_flip_out);
 		cardOutAnimation.setAnimationListener(this);
 		cardOutAnimation.setInterpolator(new AccelerateInterpolator());
 
-		cardInAnimation = AnimationUtils.loadAnimation(context, R.anim.card_flip_in);
+		cardInAnimation = AnimationUtils.loadAnimation(activity, R.anim.card_flip_in);
 		cardInAnimation.setInterpolator(new DecelerateInterpolator());
 
-		cardFront = new ImageView(context);
-		cardBack = new ImageView(context);
+		cardFront = new ImageView(activity);
+		cardBack = new ImageView(activity);
 
 		cardBack.setImageResource(R.drawable.cardback_blue);
 		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
@@ -75,27 +76,18 @@ public class Card extends RelativeLayout implements AnimationListener {
 		setCardInfo(cardInfo);
 		addView(cardFront);
 		addView(cardBack);
-
-		setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (Card.this.cardInfo.isBackShowing()) {
-					new CardSelectionDialog(Card.this.context, Card.this).show();
-				}
-			}
-		});
 	}
 
 	public void setCardInfo(CardInfo cardInfo) {
 		this.cardInfo = cardInfo;
 		this.id = getImageId();
 
-		cardFront.setImageBitmap(CardMemorizerSavedState.getInstance().getImageFromCache(id, context));
+		cardFront.setImageBitmap(CardMemorizerSavedState.getInstance().getImageFromCache(id, activity));
 		shouldShowBack(cardInfo.isBackShowing());
 	}
 
 	public void shake() {
-		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+		Vibrator v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
 		v.vibrate(250);
 		cardBack.startAnimation(cardShakeAnimation);
 	}

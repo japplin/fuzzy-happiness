@@ -10,6 +10,8 @@ import com.CardMemorizer.android.Card.Suit;
 
 public class LevelHolder {
 
+	public static final int CUSTOM_GAME = -1;
+	
 	private ArrayList<Level> levels;
 
 	private static LevelHolder instance;
@@ -39,6 +41,13 @@ public class LevelHolder {
 		levels.add(new Level(getSuitSet(4), getRankSet(4), 16, 3, levels.size()));
 		levels.add(new Level(getSuitSet(3), getRankSet(6), 18, 3, levels.size()));
 		levels.add(new Level(getSuitSet(4), getRankSet(5), 20, 5, levels.size()));
+	}
+	
+	public Level getLevel(int id) {
+		if (id == CUSTOM_GAME) {
+			return null;
+		}
+		return levels.get(id);
 	}
 
 	private Set<Rank> getRankSet(int range) {

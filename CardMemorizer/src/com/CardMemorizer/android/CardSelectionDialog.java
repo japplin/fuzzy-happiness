@@ -2,26 +2,24 @@ package com.CardMemorizer.android;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
-public class CardSelectionDialog extends AlertDialog implements OnClickListener {
+public class CardSelectionDialog extends AlertDialog {
 
-	Card card;
-	NumberPicker suitList;
-	NumberPicker rankList;
-	String[] rankValues;
-	String[] suitValues;
-	Context context;
-
+	private Card card;
+	private NumberPicker suitList;
+	private NumberPicker rankList;
+	private String[] rankValues;
+	private String[] suitValues;
+	private Context context;
+	
 	public CardSelectionDialog(Context context, Card card) {
 		super(context);
 		this.card = card;
 		this.context = context;
-
+		
 		Resources r = context.getResources();
 		RelativeLayout dialogContent = (RelativeLayout) getLayoutInflater().inflate(R.layout.card_context_menu, null);
 
@@ -38,10 +36,6 @@ public class CardSelectionDialog extends AlertDialog implements OnClickListener 
 				r.getString(R.string.six), r.getString(R.string.seven), r.getString(R.string.eight), r.getString(R.string.nine), r.getString(R.string.ten),
 				r.getString(R.string.jack), r.getString(R.string.queen), r.getString(R.string.king) };
 		setupNumberPicker(rankList, rankValues);
-
-		setButton(BUTTON_POSITIVE, r.getString(R.string.select), this);
-		setButton(BUTTON_NEGATIVE, r.getString(R.string.cancel), this);
-
 	}
 
 	private void setupNumberPicker(NumberPicker numberPicker, String[] values) {
@@ -50,12 +44,16 @@ public class CardSelectionDialog extends AlertDialog implements OnClickListener 
 		numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 	}
 
-	private void flipCard() {
+	public void flipCard() {
 		card.flip();
 	}
 
-	private void shakeCard() {
+	public void shakeCard() {
 		card.shake();
+	}
+
+	public boolean isSelectedCard() {
+		return isSelectedSuit() && isSelectedRank();
 	}
 
 	private boolean isSelectedSuit() {
@@ -64,30 +62,5 @@ public class CardSelectionDialog extends AlertDialog implements OnClickListener 
 
 	private boolean isSelectedRank() {
 		return rankValues[rankList.getValue()].equals(context.getResources().getString(card.getRank().getId()));
-	}
-
-	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		if (which == BUTTON_POSITIVE) {
-			if (isSelectedSuit() && isSelectedRank()) {
-				CardMemorizerSavedState.getInstance().setCorrectGuesses(CardMemorizerSavedState.getInstance().getCorrectGuesses() + 1);
-
-				if (CardMemorizerSavedState.getInstance().getCorrectGuesses() == CardMemorizerSavedState.getInstance().getCurLevelDeckSize()) {
-					// game win dialog
-				}
-
-				flipCard();
-			} else {
-				shakeCard();
-				if (!(CardMemorizerSavedState.getInstance().getGuessesLeft() == -2)) {
-					CardMemorizerSavedState.getInstance().setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
-
-					if (CardMemorizerSavedState.getInstance().getGuessesLeft() == -1) {
-						// game over dialog
-					}
-				}
-			}
-		}
-		dismiss();
 	}
 }

@@ -20,7 +20,7 @@ import com.CardMemorizer.android.Card.Rank;
 import com.CardMemorizer.android.Card.Suit;
 
 public class CustomGameCreation extends Activity {
-	public static final String DECK_INFO = "DECK_INFO";
+	
 	private NumberPicker numberPicker;
 
 	private Set<Suit> suitsInDeck = new HashSet<Suit>(Suit.values().length);

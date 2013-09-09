@@ -19,4 +19,10 @@ public class LevelBrowser extends Activity {
 		levelGrid.setAdapter(adapter);
 
 	}
+	
+	@Override
+	protected void onResume() {
+		adapter.setSetLevels(LevelHolder.getInstance().getLevels());
+		super.onResume();
+	}
 }

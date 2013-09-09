@@ -9,19 +9,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class LevelAdapter extends BaseAdapter {
 
-	ArrayList<Level> levels;
-	Activity activity;
+	private ArrayList<Level> levels;
+	private Activity activity;
 
 	public LevelAdapter(Activity activity, ArrayList<Level> levels) {
 		this.levels = levels;
 		this.activity = activity;
 	}
 
+	public void setSetLevels(ArrayList<Level> levels) {
+		this.levels = levels;
+		notifyDataSetChanged();
+	}
+	
 	@Override
 	public int getCount() {
 		return levels.size();
@@ -47,7 +53,8 @@ public class LevelAdapter extends BaseAdapter {
 		} else {
 			relativeLayout = (RelativeLayout) convertView;
 		}
-
+		ImageView imageView = (ImageView) relativeLayout.findViewById(R.id.completed);
+		imageView.setVisibility(levels.get(position).hasBeenCompleted() ? View.VISIBLE : View.GONE);
 		TextView textView = (TextView) relativeLayout.findViewById(R.id.level_name);
 		textView.setText("" + position);
 		relativeLayout.setOnClickListener(new OnClickListener() {
