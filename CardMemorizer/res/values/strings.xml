@@ -10,6 +10,7 @@
     <string name="card_selection_dialog_title">Select the correct Rank and Suit.</string>
     <string name="cancel">Cancel</string>
     <string name="select">Select</string>
+    <string name="next_level">Next Level</string>
     <string name="ace">A</string>
     <string name="two">2</string>
     <string name="four">4</string>

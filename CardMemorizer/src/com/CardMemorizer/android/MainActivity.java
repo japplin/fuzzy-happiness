@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +28,6 @@ public class MainActivity extends Activity {
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	private Button startButton;
-	private Button restartButton;
 	private Level level;
 	private ArrayList<CardInfo> deck;
 
@@ -41,13 +39,12 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Intent intent = getIntent();
 		this.level = LevelHolder.getInstance().getLevel(intent.getIntExtra(LEVEL_INFO, LevelHolder.CUSTOM_GAME));
-
+		CardMemorizerSavedState.getInstance().setIsRunning(false);
+		
 		gridView = ((GridView) findViewById(R.id.grid_view));
 		drawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
 		startButton = ((Button) drawer.findViewById(R.id.start));
-		restartButton = ((Button) drawer.findViewById(R.id.restart));
 
-		drawer.openDrawer(Gravity.LEFT);
 		mDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
 
 			public void onDrawerClosed(View view) {
@@ -80,6 +77,7 @@ public class MainActivity extends Activity {
 
 						if (CardMemorizerSavedState.getInstance().getCorrectGuesses() == CardMemorizerSavedState.getInstance().getCurLevelDeckSize()) {
 							level.setLevelCompleted();
+							createGameOverDialog(true).show();
 						}
 
 					} else {
@@ -88,7 +86,7 @@ public class MainActivity extends Activity {
 							CardMemorizerSavedState.getInstance().setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
 
 							if (CardMemorizerSavedState.getInstance().getGuessesLeft() == -1) {
-
+								createGameOverDialog(false).show();
 							}
 						}
 					}
@@ -107,6 +105,39 @@ public class MainActivity extends Activity {
 		mDrawerToggle.syncState();
 	}
 
+	private AlertDialog createGameOverDialog(final boolean winner) {
+		AlertDialog gameOverDialog = new AlertDialog.Builder(this).create();
+		gameOverDialog.setTitle(level.getLevelId()+"");
+		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+				winner ? getResources().getString(R.string.next_level) : getResources().getString(R.string.restart),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (winner) {
+							Level nextLevel = LevelHolder.getInstance().getLevel(level.getLevelId() + 1);
+							CardMemorizerSavedState.getInstance().loadLevel(nextLevel, MainActivity.this);
+							MainActivity.this.finish();
+						} else {
+							MainActivity.this.restartGame();
+						}
+					}
+
+				});
+		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE,
+				winner ? getResources().getString(R.string.main_menu) : getResources().getString(R.string.restart),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						MainActivity.this.finish();
+					}
+
+				});
+
+		return gameOverDialog;
+	}
+
 	private void setupButtons() {
 		startButton.setOnClickListener(new OnClickListener() {
 
@@ -122,19 +153,15 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
-
-		restartButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				for (CardInfo card : deck) {
-					card.isBackShowing(false);
-				}
-				adapter.notifyDataSetChanged();
-				Collections.shuffle(deck);
-				CardMemorizerSavedState.getInstance().setIsRunning(false);
-			}
-		});
+	}
+	
+	public void restartGame(){
+		for (CardInfo card : deck) {
+			card.isBackShowing(false);
+		}
+		adapter.notifyDataSetChanged();
+		Collections.shuffle(deck);
+		CardMemorizerSavedState.getInstance().setIsRunning(false);
 	}
 
 	@Override
