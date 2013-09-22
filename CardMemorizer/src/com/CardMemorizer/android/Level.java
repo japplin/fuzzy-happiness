@@ -62,6 +62,7 @@ public class Level {
 		SharedPreferences.Editor editor = CardMemorizer.getContext().getSharedPreferences(LEVEL_PREFS, 0).edit();
 		editor.putBoolean(LEVEL_COMPLETION + levelId, true);
 		editor.commit();
+		hasBeenCompleted = true;
 	}
 
 }
