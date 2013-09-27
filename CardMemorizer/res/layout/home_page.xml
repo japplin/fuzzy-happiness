@@ -1,57 +1,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
 
-    <View
-        android:id="@+id/center"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerVertical="true" />
+	<View
+		android:id="@+id/center"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_centerVertical="true" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/center"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical" >
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_above="@id/center"
+		android:layout_centerHorizontal="true"
+		android:orientation="vertical" >
 
-        <View
-            android:id="@+id/top_space"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+		<View
+			android:id="@+id/top_space"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/app_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/app_name"
-            android:textSize="50sp" />
-    </LinearLayout>
+		<TextView
+			android:id="@+id/app_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/app_name"
+			android:textSize="50sp" />
+	</LinearLayout>
 
-    <Button
-        android:id="@+id/level_mode"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/center"
-        android:layout_centerHorizontal="true"
-        android:text="@string/levels" />
+	<Button
+		android:id="@+id/level_mode"
+		android:layout_width="150dp"
+		android:layout_height="50dp"
+		android:layout_below="@id/center"
+		android:layout_centerHorizontal="true"
+		android:text="@string/levels" />
 
-    <Button
-        android:id="@+id/custom_mode"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/level_mode"
-        android:layout_centerHorizontal="true"
-        android:text="@string/custom_game" />
+	<Button
+		android:id="@+id/custom_mode"
+		android:layout_width="150dp"
+		android:layout_height="50dp"
+		android:layout_below="@id/level_mode"
+		android:layout_centerHorizontal="true"
+		android:text="@string/custom_game" />
 
-    <Button
-        android:id="@+id/about"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/custom_mode"
-        android:layout_centerHorizontal="true" 
-        android:text="@string/about" />
+	<Button
+		android:id="@+id/about"
+		android:layout_width="150dp"
+		android:layout_height="50dp"
+		android:layout_below="@id/custom_mode"
+		android:layout_centerHorizontal="true"
+		android:text="@string/about" />
+
+	<com.google.ads.AdView
+		android:id="@+id/adView"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		ads:adSize="BANNER"
+		ads:adUnitId="ca-app-pub-3369624074196467/9418052431"
+		ads:loadAdOnCreate="true"
+		ads:testDevices="02c1bf11f0a699af"
+		android:background="@color/AliceBlue" />
 
 </RelativeLayout>
