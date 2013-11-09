@@ -49,19 +49,22 @@ public class LevelAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			relativeLayout = (RelativeLayout) inflater.inflate(R.layout.level_icon, null);
+			relativeLayout = (RelativeLayout) inflater.inflate(R.layout.level_icon, parent, false);
 		} else {
 			relativeLayout = (RelativeLayout) convertView;
 		}
-		ImageView imageView = (ImageView) relativeLayout.findViewById(R.id.bg_color);
-
-		if (levels.get(position).hasBeenCompleted()) {
-			imageView.setImageResource(R.color.blue);
-		} else {
-			imageView.setImageResource(R.color.LightSlateGray);
-		}
 		TextView textView = (TextView) relativeLayout.findViewById(R.id.level_name);
-		textView.setText("" + position);
+		if (levels.get(position).hasBeenCompleted()) {
+			relativeLayout.setBackgroundResource(R.color.Red);
+			relativeLayout.findViewById(R.id.checkmark).setVisibility(View.VISIBLE);
+			textView.setVisibility(View.GONE);
+		} else {
+			relativeLayout.setBackgroundResource(R.color.DarkGray);
+			relativeLayout.findViewById(R.id.checkmark).setVisibility(View.GONE);
+			textView.setText("" + position);
+			textView.setTextColor(activity.getResources().getColor(R.color.White));
+		}
+
 		relativeLayout.setOnClickListener(new OnClickListener() {
 
 			@Override

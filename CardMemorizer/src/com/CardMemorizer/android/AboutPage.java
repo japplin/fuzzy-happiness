@@ -1,13 +1,18 @@
 package com.CardMemorizer.android;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 public class AboutPage extends Activity {
+	ActionBar actionBar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setTitle(R.string.about);
 		super.onCreate(savedInstanceState);
 	}
 

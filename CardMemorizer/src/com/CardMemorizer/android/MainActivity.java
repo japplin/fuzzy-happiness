@@ -24,9 +24,6 @@ public class MainActivity extends Activity {
 	private GridView gridView;
 	private CardGridViewAdapter adapter;
 	private MenuItem playButton;
-	
-	private DrawerLayout drawer;
-	private ActionBarDrawerToggle mDrawerToggle;
 
 	private Level level;
 	private ArrayList<CardInfo> deck;
@@ -37,27 +34,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		Intent intent = getIntent();
 		this.level = LevelHolder.getInstance().getLevel(intent.getIntExtra(LEVEL_INFO, LevelHolder.CUSTOM_GAME));
+		getActionBar().setTitle(getResources().getString(R.string.level) + " " + level.getLevelId());
 		CardMemorizerSavedState.getInstance().setIsRunning(false);
 
 		gridView = ((GridView) findViewById(R.id.grid_view));
-		drawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
-
-		mDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
-
-			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(R.string.app_name);
-			}
-
-			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(R.string.app_name);
-			}
-		};
-
-		drawer.setDrawerListener(mDrawerToggle);
-
+		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
@@ -98,13 +82,7 @@ public class MainActivity extends Activity {
 		gridView.setAdapter(adapter);
 
 	}
-
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		mDrawerToggle.syncState();
-	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -157,12 +135,6 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		deck = savedInstanceState.getParcelableArrayList(DECK_INFO);
 		adapter.setData(deck);
@@ -196,8 +168,8 @@ public class MainActivity extends Activity {
 				restartGame();
 			}
 			return true;
-		}
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
+		case android.R.id.home:
+			NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
 			return true;
 		}
 

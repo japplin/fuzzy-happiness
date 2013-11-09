@@ -1,16 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_gravity="center"
+	android:gravity="center" >
 
-    <GridView
-        android:id="@+id/level_grid"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:columnWidth="90dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
+	<GridView
+		android:id="@+id/level_grid"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_gravity="center"
+		android:layout_margin="10dp"
+		android:clipToPadding="false"
+		android:columnWidth="75dp"
+		android:gravity="center"
+		android:horizontalSpacing="10dp"
+		android:numColumns="auto_fit"
+		android:stretchMode="columnWidth"
+		android:verticalSpacing="10dp" />
 
 </RelativeLayout>

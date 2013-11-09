@@ -23,5 +23,10 @@ public class NavigationHelper {
 		activity.startActivity(intent);
 		activity.finish();
 	}
-	
+
+	public void goToLevelBrowserActivity(Activity activity) {
+		Intent intent = new Intent(activity, LevelBrowser.class);
+		activity.startActivity(intent);
+		activity.finish();
+	}
 }

@@ -40,7 +40,7 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this, LevelBrowser.class));
+				NavigationHelper.getInstance().goToLevelBrowserActivity(HomeActivity.this);
 			}
 		});
 
