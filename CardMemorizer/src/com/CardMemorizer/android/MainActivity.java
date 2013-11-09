@@ -11,6 +11,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +29,6 @@ public class MainActivity extends Activity {
 	private DrawerLayout drawer;
 	private ActionBarDrawerToggle mDrawerToggle;
 
-	private Button startButton;
 	private Level level;
 	private ArrayList<CardInfo> deck;
 
@@ -37,13 +38,13 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		Intent intent = getIntent();
 		this.level = LevelHolder.getInstance().getLevel(intent.getIntExtra(LEVEL_INFO, LevelHolder.CUSTOM_GAME));
 		CardMemorizerSavedState.getInstance().setIsRunning(false);
-		
+
 		gridView = ((GridView) findViewById(R.id.grid_view));
 		drawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
-		startButton = ((Button) drawer.findViewById(R.id.start));
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
 
@@ -96,7 +97,7 @@ public class MainActivity extends Activity {
 		});
 		gridView.setColumnWidth(175);
 		gridView.setAdapter(adapter);
-		setupButtons();
+
 	}
 
 	@Override
@@ -105,11 +106,18 @@ public class MainActivity extends Activity {
 		mDrawerToggle.syncState();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.game_options_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
 	private AlertDialog createGameOverDialog(final boolean winner) {
 		AlertDialog gameOverDialog = new AlertDialog.Builder(this).create();
-		gameOverDialog.setTitle(level.getLevelId()+"");
-		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE,
-				winner ? getResources().getString(R.string.next_level) : getResources().getString(R.string.restart),
+		gameOverDialog.setTitle(level.getLevelId() + "");
+		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE, winner ? getResources().getString(R.string.next_level) : getResources().getString(R.string.restart),
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -124,8 +132,7 @@ public class MainActivity extends Activity {
 					}
 
 				});
-		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE,
-				winner ? getResources().getString(R.string.main_menu) : getResources().getString(R.string.restart),
+		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE, winner ? getResources().getString(R.string.main_menu) : getResources().getString(R.string.restart),
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -138,24 +145,7 @@ public class MainActivity extends Activity {
 		return gameOverDialog;
 	}
 
-	private void setupButtons() {
-		startButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (!CardMemorizerSavedState.getInstance().isRunning()) {
-					CardMemorizerSavedState.getInstance().setIsRunning(true);
-					for (CardInfo card : deck) {
-						card.isBackShowing(true);
-					}
-					drawer.closeDrawers();
-					adapter.notifyDataSetChanged();
-				}
-			}
-		});
-	}
-	
-	public void restartGame(){
+	public void restartGame() {
 		for (CardInfo card : deck) {
 			card.isBackShowing(false);
 		}
@@ -191,6 +181,21 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.start_game:
+			if (!CardMemorizerSavedState.getInstance().isRunning()) {
+				CardMemorizerSavedState.getInstance().setIsRunning(true);
+				for (CardInfo card : deck) {
+					card.isBackShowing(true);
+				}
+				item.setIcon(R.drawable.ic_action_refresh);
+				adapter.notifyDataSetChanged();
+			} else {
+				restartGame();
+				item.setIcon(R.drawable.ic_action_play);
+			}
+			return true;
+		}
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
