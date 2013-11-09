@@ -36,5 +36,9 @@
     <string name="custom_game_start_title">The game can not be started.</string>
     <string name="custom_game_start_message">Please ensure you have selected at least one suit and rank.</string>
     <string name="ok">OK</string>
+    <string name="copyright">\u00A9 2013 Passro inc. All Rights Reserved.</string>
+    <string name="pick_suit">Select suits:</string>
+    <string name="pick_rank">Select ranks:</string>
+    <string name="pick_deck_size">Select deck size:</string>
 
 </resources>

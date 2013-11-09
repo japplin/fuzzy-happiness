@@ -1,11 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+    
+    <TextView
+            android:id="@+id/pick_suit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/pick_suit"
+            android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/suits_container"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dip"
         android:orientation="horizontal" >
 
         <CheckBox
@@ -14,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="false"
+    		android:paddingRight="24dip"
             android:drawableRight="@drawable/hearts" />
 
         <CheckBox
@@ -22,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="false"
+            android:paddingRight="24dip"
             android:drawableRight="@drawable/diamonds" />
 
         <CheckBox
@@ -30,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="false"
+            android:paddingRight="24dip"
             android:drawableRight="@drawable/clubs" />
 
         <CheckBox
@@ -38,14 +52,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="false"
+            android:paddingRight="24dip"
             android:drawableRight="@drawable/spades" />
     </LinearLayout>
+    
+    <TextView
+            android:id="@+id/pick_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/pick_rank"
+            android:layout_below="@id/suits_container"
+            android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/rank_container_1"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/suits_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dip"
+        android:layout_below="@id/pick_rank"
         android:orientation="horizontal" >
 
         <CheckBox
@@ -53,7 +80,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/ace" />
 
         <CheckBox
@@ -61,7 +91,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/two" />
 
         <CheckBox
@@ -69,7 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/three" />
 
         <CheckBox
@@ -77,31 +113,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/four" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rank_container_2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rank_container_1"
-        android:orientation="horizontal" >
-
+        
         <CheckBox
             android:id="@+id/five"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/five" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rank_container_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:layout_below="@id/rank_container_1"
+        android:orientation="horizontal" >
 
         <CheckBox
             android:id="@+id/six"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/six" />
 
         <CheckBox
@@ -109,7 +156,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/seven" />
 
         <CheckBox
@@ -117,31 +167,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/eight" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rank_container_3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rank_container_2"
-        android:orientation="horizontal" >
-
+        
         <CheckBox
             android:id="@+id/nine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/nine" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rank_container_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:layout_below="@id/rank_container_2"
+        android:orientation="horizontal" >
 
         <CheckBox
             android:id="@+id/ten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/ten" />
 
         <CheckBox
@@ -149,7 +210,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/jack" />
 
         <CheckBox
@@ -157,30 +221,57 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="8dip"
             android:checked="false"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="@string/queen" />
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/king"
-        android:layout_below="@id/rank_container_3"
+        
+        <CheckBox
+        android:id="@+id/king"     
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingRight="8dip"
         android:checked="false"
-        android:text="@string/king" />
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:text="@string/king" />      
+        
+    </LinearLayout>
+    
+    <TextView
+            android:id="@+id/pick_deck_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/rank_container_3"
+            android:text="@string/pick_deck_size"
+            android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/np_and_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dip"
+        android:layout_below="@id/pick_deck_size"
+        android:orientation="horizontal" >
 
     <NumberPicker
         android:id="@+id/np"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/king"
         android:width="100dip" />
 
     <Button
         android:id="@+id/new_game"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/np"
+        android:layout_width="150dp"
+        android:layout_height="185dp"
+        android:layout_marginLeft="25dip"
         android:text="@string/start" />
+    
+    </LinearLayout>
 
 </RelativeLayout>
