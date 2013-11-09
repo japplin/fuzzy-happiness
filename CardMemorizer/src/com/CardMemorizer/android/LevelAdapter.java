@@ -27,7 +27,7 @@ public class LevelAdapter extends BaseAdapter {
 		this.levels = levels;
 		notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public int getCount() {
 		return levels.size();
@@ -53,8 +53,13 @@ public class LevelAdapter extends BaseAdapter {
 		} else {
 			relativeLayout = (RelativeLayout) convertView;
 		}
-		ImageView imageView = (ImageView) relativeLayout.findViewById(R.id.completed);
-		imageView.setVisibility(levels.get(position).hasBeenCompleted() ? View.VISIBLE : View.GONE);
+		ImageView imageView = (ImageView) relativeLayout.findViewById(R.id.bg_color);
+
+		if (levels.get(position).hasBeenCompleted()) {
+			imageView.setImageResource(R.color.blue);
+		} else {
+			imageView.setImageResource(R.color.LightSlateGray);
+		}
 		TextView textView = (TextView) relativeLayout.findViewById(R.id.level_name);
 		textView.setText("" + position);
 		relativeLayout.setOnClickListener(new OnClickListener() {
