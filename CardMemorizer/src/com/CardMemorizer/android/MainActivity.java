@@ -7,14 +7,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.GridView;
 
 public class MainActivity extends Activity {
@@ -37,11 +33,15 @@ public class MainActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		Intent intent = getIntent();
 		this.level = LevelHolder.getInstance().getLevel(intent.getIntExtra(LEVEL_INFO, LevelHolder.CUSTOM_GAME));
-		getActionBar().setTitle(getResources().getString(R.string.level) + " " + level.getLevelId());
+		if (level == null) {
+			getActionBar().setTitle(getResources().getString(R.string.custom_game));
+		} else {
+			getActionBar().setTitle(getResources().getString(R.string.level) + " " + level.getLevelId());
+		}
 		CardMemorizerSavedState.getInstance().setIsRunning(false);
 
 		gridView = ((GridView) findViewById(R.id.grid_view));
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
 		gridView.setAdapter(adapter);
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
