@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,7 +21,7 @@ import com.CardMemorizer.android.Card.Rank;
 import com.CardMemorizer.android.Card.Suit;
 
 public class CustomGameCreation extends Activity {
-	
+
 	private NumberPicker numberPicker;
 
 	private Set<Suit> suitsInDeck = new HashSet<Suit>(Suit.values().length);
@@ -32,6 +33,7 @@ public class CustomGameCreation extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.custom_game_creation_screen);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		((CheckBox) findViewById(R.id.chkhearts)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.hearts));
 		((CheckBox) findViewById(R.id.chkdiamonds)).setOnCheckedChangeListener(createSuitCheckChanged(Suit.diamonds));
@@ -122,4 +124,15 @@ public class CustomGameCreation extends Activity {
 			}
 		};
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavigationHelper.getInstance().goToHomeActivity(CustomGameCreation.this);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 }
