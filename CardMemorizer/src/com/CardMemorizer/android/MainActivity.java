@@ -15,8 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.GridView;
 
 public class MainActivity extends Activity {
@@ -25,7 +23,8 @@ public class MainActivity extends Activity {
 	public static final String LEVEL_INFO = "LEVEL_INFO";
 	private GridView gridView;
 	private CardGridViewAdapter adapter;
-
+	private MenuItem playButton;
+	
 	private DrawerLayout drawer;
 	private ActionBarDrawerToggle mDrawerToggle;
 
@@ -111,6 +110,7 @@ public class MainActivity extends Activity {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.game_options_menu, menu);
+		playButton = menu.findItem(R.id.start_game);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -152,6 +152,8 @@ public class MainActivity extends Activity {
 		adapter.notifyDataSetChanged();
 		Collections.shuffle(deck);
 		CardMemorizerSavedState.getInstance().setIsRunning(false);
+
+		playButton.setIcon(R.drawable.ic_action_play);
 	}
 
 	@Override
@@ -192,7 +194,6 @@ public class MainActivity extends Activity {
 				adapter.notifyDataSetChanged();
 			} else {
 				restartGame();
-				item.setIcon(R.drawable.ic_action_play);
 			}
 			return true;
 		}

@@ -158,5 +158,6 @@
 	<color name="Navy">#000080</color>
 	<color name="Black">#000000</color>
 	<color name="LightRed">#FF4444</color>
+	<color name="pressed_cardmemorizer">#CC764141</color>
 
 </resources>
