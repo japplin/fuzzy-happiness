@@ -41,4 +41,9 @@ public class LevelBrowser extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	public void onBackPressed() {
+		NavigationHelper.getInstance().goToHomeActivity(this);
+	}
 }

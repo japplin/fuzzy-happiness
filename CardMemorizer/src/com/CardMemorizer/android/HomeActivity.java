@@ -48,7 +48,7 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this, CustomGameCreation.class));
+				NavigationHelper.getInstance().goToCustomGameCreation(HomeActivity.this);
 			}
 		});
 
@@ -56,8 +56,9 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this, AboutPage.class));
+				NavigationHelper.getInstance().goToAboutPage(HomeActivity.this);
 			}
 		});
 	}
+	
 }

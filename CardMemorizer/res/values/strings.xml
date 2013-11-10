@@ -42,5 +42,6 @@
 	<string name="pick_deck_size">Select deck size:</string>
 	<string name="level">Level</string>
 	<string name="select_level">Choose a Level</string>
+	<string name="guesses">Guesses</string>
 
 </resources>

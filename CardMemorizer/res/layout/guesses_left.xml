@@ -1,0 +1,7 @@
+<com.CardMemorizer.android.GuessesLeftActionItem xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center"
+	android:paddingRight="20dp" >
+
+</com.CardMemorizer.android.GuessesLeftActionItem>

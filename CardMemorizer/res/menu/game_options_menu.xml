@@ -3,7 +3,14 @@
 	<item
 		android:id="@+id/start_game"
 		android:icon="@drawable/ic_action_play"
-		android:showAsAction="ifRoom"
+		android:showAsAction="always"
 		android:title="@string/start"/>
+	<item/>
+	<item
+		android:id="@+id/guesses"
+		android:actionLayout="@layout/guesses_left"
+		android:showAsAction="always"
+		android:title="@string/guesses"/>
+	<item/>
 
 </menu>

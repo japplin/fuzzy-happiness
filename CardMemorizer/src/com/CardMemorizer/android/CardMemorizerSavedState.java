@@ -3,6 +3,8 @@ package com.CardMemorizer.android;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +23,7 @@ public class CardMemorizerSavedState {
 	private int guessesLeft;
 	private int correctGuesses;
 	private int curLevelDeckSize;
+	private HashSet<GuessesLeft> listeners;
 
 	HashMap<Integer, Bitmap> imageCache = new HashMap<Integer, Bitmap>();
 
@@ -32,7 +35,7 @@ public class CardMemorizerSavedState {
 	}
 
 	private CardMemorizerSavedState() {
-
+		listeners = new HashSet<GuessesLeft>();
 	}
 
 	public boolean isRunning() {
@@ -43,8 +46,17 @@ public class CardMemorizerSavedState {
 		this.isRunning = isRunning;
 	}
 
+	public void registerListener(GuessesLeft guessesLeft) {
+		listeners.add(guessesLeft);
+	}
+
 	public void setGuessesLeft(int guessesLeft) {
 		this.guessesLeft = guessesLeft;
+		for (GuessesLeft listener : listeners) {
+			if (listener != null) {
+				listener.guessesLeftChanged(guessesLeft);
+			}
+		}
 	}
 
 	public void setCorrectGuesses(int correctGuesses) {
@@ -88,7 +100,7 @@ public class CardMemorizerSavedState {
 		intent.putExtra(MainActivity.LEVEL_INFO, curLevel.getLevelId());
 		activity.startActivity(intent);
 	}
-	
+
 	private ArrayList<CardInfo> createDeck(Level curLevel) {
 		ArrayList<CardInfo> deck = new ArrayList<CardInfo>(curLevel.getDeckSize());
 

@@ -29,4 +29,17 @@ public class NavigationHelper {
 		activity.startActivity(intent);
 		activity.finish();
 	}
+
+	public void goToCustomGameCreation(Activity activity) {
+		Intent intent = new Intent(activity, CustomGameCreation.class);
+		activity.startActivity(intent);
+		activity.finish();
+	}
+	
+	public void goToAboutPage(Activity activity) {
+		Intent intent = new Intent(activity, AboutPage.class);
+		activity.startActivity(intent);
+		activity.finish();
+	}
+
 }

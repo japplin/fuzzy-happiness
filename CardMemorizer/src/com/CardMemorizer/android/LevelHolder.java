@@ -26,20 +26,20 @@ public class LevelHolder {
 
 	private LevelHolder() {
 		levels = new ArrayList<Level>();
-		levels.add(new Level(getSuitSet(1), getRankSet(3), 3, 0, levels.size()));
-		levels.add(new Level(getSuitSet(2), getRankSet(2), 4, 0, levels.size()));
-		levels.add(new Level(getSuitSet(1), getRankSet(6), 6, 0, levels.size()));
-		levels.add(new Level(getSuitSet(2), getRankSet(3), 6, 1, levels.size()));
-		levels.add(new Level(getSuitSet(3), getRankSet(2), 6, 1, levels.size()));
-		levels.add(new Level(getSuitSet(1), getRankSet(8), 8, 1, levels.size()));
-		levels.add(new Level(getSuitSet(4), getRankSet(2), 8, 1, levels.size()));
-		levels.add(new Level(getSuitSet(3), getRankSet(3), 9, 1, levels.size()));
-		levels.add(new Level(getSuitSet(2), getRankSet(5), 10, 2, levels.size()));
-		levels.add(new Level(getSuitSet(1), getRankSet(13), 13, 2, levels.size()));
-		levels.add(new Level(getSuitSet(2), getRankSet(7), 14, 2, levels.size()));
-		levels.add(new Level(getSuitSet(3), getRankSet(5), 15, 3, levels.size()));
-		levels.add(new Level(getSuitSet(4), getRankSet(4), 16, 3, levels.size()));
-		levels.add(new Level(getSuitSet(3), getRankSet(6), 18, 3, levels.size()));
+		levels.add(new Level(getSuitSet(1), getRankSet(3), 3, 1, levels.size()));
+		levels.add(new Level(getSuitSet(2), getRankSet(2), 4, 1, levels.size()));
+		levels.add(new Level(getSuitSet(1), getRankSet(6), 6, 1, levels.size()));
+		levels.add(new Level(getSuitSet(2), getRankSet(3), 6, 2, levels.size()));
+		levels.add(new Level(getSuitSet(3), getRankSet(2), 6, 2, levels.size()));
+		levels.add(new Level(getSuitSet(1), getRankSet(8), 8, 2, levels.size()));
+		levels.add(new Level(getSuitSet(4), getRankSet(2), 8, 2, levels.size()));
+		levels.add(new Level(getSuitSet(3), getRankSet(3), 9, 2, levels.size()));
+		levels.add(new Level(getSuitSet(2), getRankSet(5), 10, 3, levels.size()));
+		levels.add(new Level(getSuitSet(1), getRankSet(13), 13, 3, levels.size()));
+		levels.add(new Level(getSuitSet(2), getRankSet(7), 14, 3, levels.size()));
+		levels.add(new Level(getSuitSet(3), getRankSet(5), 15, 4, levels.size()));
+		levels.add(new Level(getSuitSet(4), getRankSet(4), 16, 4, levels.size()));
+		levels.add(new Level(getSuitSet(3), getRankSet(6), 18, 4, levels.size()));
 		levels.add(new Level(getSuitSet(4), getRankSet(5), 20, 5, levels.size()));
 	}
 	

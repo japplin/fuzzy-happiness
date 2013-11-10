@@ -13,13 +13,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.GridView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements GuessesLeft {
 
 	public static final String DECK_INFO = "DECK_INFO";
 	public static final String LEVEL_INFO = "LEVEL_INFO";
 	private GridView gridView;
 	private CardGridViewAdapter adapter;
 	private MenuItem playButton;
+	private Menu menu;
 
 	private Level level;
 	private ArrayList<CardInfo> deck;
@@ -39,7 +40,7 @@ public class MainActivity extends Activity {
 			getActionBar().setTitle(getResources().getString(R.string.level) + " " + level.getLevelId());
 		}
 		CardMemorizerSavedState.getInstance().setIsRunning(false);
-
+		CardMemorizerSavedState.getInstance().registerListener(this);
 		gridView = ((GridView) findViewById(R.id.grid_view));
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +70,7 @@ public class MainActivity extends Activity {
 						if (!(CardMemorizerSavedState.getInstance().getGuessesLeft() == -2)) {
 							CardMemorizerSavedState.getInstance().setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
 
-							if (CardMemorizerSavedState.getInstance().getGuessesLeft() == -1) {
+							if (CardMemorizerSavedState.getInstance().getGuessesLeft() == 0) {
 								createGameOverDialog(false).show();
 							}
 						}
@@ -89,6 +90,11 @@ public class MainActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.game_options_menu, menu);
 		playButton = menu.findItem(R.id.start_game);
+		CardMemorizerSavedState.getInstance().registerListener((GuessesLeft) menu.findItem(R.id.guesses).getActionView());
+		this.menu = menu;
+		menu.getItem(1).setVisible(false);
+		menu.getItem(2).setVisible(false);
+		menu.getItem(3).setVisible(false);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -130,6 +136,7 @@ public class MainActivity extends Activity {
 		adapter.notifyDataSetChanged();
 		Collections.shuffle(deck);
 		CardMemorizerSavedState.getInstance().setIsRunning(false);
+		CardMemorizerSavedState.getInstance().setGuessesLeft(0);
 
 		playButton.setIcon(R.drawable.ic_action_play);
 	}
@@ -164,16 +171,41 @@ public class MainActivity extends Activity {
 				}
 				item.setIcon(R.drawable.ic_action_refresh);
 				adapter.notifyDataSetChanged();
+				if (level != null) {
+					CardMemorizerSavedState.getInstance().setGuessesLeft(level.getGuesses());
+				}
 			} else {
 				restartGame();
 			}
 			return true;
 		case android.R.id.home:
-			NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
+			if (level == null) {
+				CardMemorizerSavedState.getInstance().setIsRunning(false);
+				NavigationHelper.getInstance().goToCustomGameCreation(MainActivity.this);
+			} else {
+				CardMemorizerSavedState.getInstance().setIsRunning(false);
+				NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
+			}
 			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (level == null) {
+			CardMemorizerSavedState.getInstance().setIsRunning(false);
+			NavigationHelper.getInstance().goToCustomGameCreation(MainActivity.this);
+		} else {
+			CardMemorizerSavedState.getInstance().setIsRunning(false);
+			NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
+		}
+	}
+
+	@Override
+	public void guessesLeftChanged(int guessesLeft) {
+		menu.findItem(R.id.guesses).setVisible(guessesLeft != 0);
 	}
 
 }
