@@ -79,7 +79,6 @@ public class MainActivity extends Activity implements GuessesLeft {
 				dialog.dismiss();
 			}
 		});
-		gridView.setColumnWidth(175);
 		gridView.setAdapter(adapter);
 
 	}

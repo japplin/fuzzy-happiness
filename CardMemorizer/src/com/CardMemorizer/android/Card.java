@@ -1,9 +1,8 @@
 package com.CardMemorizer.android;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Vibrator;
-import android.view.Gravity;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -15,7 +14,8 @@ import android.widget.RelativeLayout;
 
 public class Card extends RelativeLayout implements AnimationListener {
 	public enum Suit {
-		spades(R.string.spades), hearts(R.string.hearts), clubs(R.string.clubs), diamonds(R.string.diamonds);
+		spades(R.string.spades), hearts(R.string.hearts), clubs(R.string.clubs), diamonds(
+				R.string.diamonds);
 
 		private int id;
 
@@ -29,8 +29,11 @@ public class Card extends RelativeLayout implements AnimationListener {
 	};
 
 	public enum Rank {
-		ace(R.string.ace), two(R.string.two), three(R.string.three), four(R.string.four), five(R.string.five), six(R.string.six), seven(R.string.seven), eight(R.string.eight), nine(
-				R.string.nine), ten(R.string.ten), jack(R.string.jack), queen(R.string.queen), king(R.string.king);
+		ace(R.string.ace), two(R.string.two), three(R.string.three), four(
+				R.string.four), five(R.string.five), six(R.string.six), seven(
+				R.string.seven), eight(R.string.eight), nine(R.string.nine), ten(
+				R.string.ten), jack(R.string.jack), queen(R.string.queen), king(
+				R.string.king);
 
 		private int id;
 
@@ -46,54 +49,48 @@ public class Card extends RelativeLayout implements AnimationListener {
 
 	private int id;
 	private CardInfo cardInfo;
-	private ImageView cardBack;
-	private ImageView cardFront;
-	private Activity activity;
+	private Context context;
 	private Animation cardOutAnimation;
 	private Animation cardInAnimation;
 	private Animation cardShakeAnimation;
+	private ViewHolder viewHolder;
 
-	public Card(final Activity activity, CardInfo cardInfo) {
-		super(activity);
-		this.activity = activity;
-		setGravity(Gravity.CENTER);
+	public Card(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		this.context = context;
+		cardShakeAnimation = AnimationUtils
+				.loadAnimation(context, R.anim.shake);
 
-		cardShakeAnimation = AnimationUtils.loadAnimation(activity, R.anim.shake);
-
-		cardOutAnimation = AnimationUtils.loadAnimation(activity, R.anim.card_flip_out);
+		cardOutAnimation = AnimationUtils.loadAnimation(context,
+				R.anim.card_flip_out);
 		cardOutAnimation.setAnimationListener(this);
 		cardOutAnimation.setInterpolator(new AccelerateInterpolator());
 
-		cardInAnimation = AnimationUtils.loadAnimation(activity, R.anim.card_flip_in);
+		cardInAnimation = AnimationUtils.loadAnimation(context,
+				R.anim.card_flip_in);
 		cardInAnimation.setInterpolator(new DecelerateInterpolator());
-
-		cardFront = new ImageView(activity);
-		cardBack = new ImageView(activity);
-
-		cardBack.setImageResource(R.drawable.cardback_blue);
-		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
-
-		setCardInfo(cardInfo);
-		addView(cardFront);
-		addView(cardBack);
+		viewHolder = new ViewHolder();
 	}
 
 	public void setCardInfo(CardInfo cardInfo) {
 		this.cardInfo = cardInfo;
 		this.id = getImageId();
 
-		cardFront.setImageBitmap(CardMemorizerSavedState.getInstance().getImageFromCache(id, activity));
+		viewHolder.getCardFront().setImageBitmap(
+				CardMemorizerSavedState.getInstance().getImageFromCache(id,
+						context));
 		shouldShowBack(cardInfo.isBackShowing());
 	}
 
 	public void shake() {
-		Vibrator v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+		Vibrator v = (Vibrator) context
+				.getSystemService(Context.VIBRATOR_SERVICE);
 		v.vibrate(250);
-		cardBack.startAnimation(cardShakeAnimation);
+		viewHolder.getCardBack().startAnimation(cardShakeAnimation);
 	}
 
 	public void flip() {
-		cardBack.startAnimation(cardOutAnimation);
+		viewHolder.getCardBack().startAnimation(cardOutAnimation);
 	}
 
 	public Rank getRank() {
@@ -106,8 +103,10 @@ public class Card extends RelativeLayout implements AnimationListener {
 
 	public void shouldShowBack(boolean shouldShowBack) {
 		cardInfo.isBackShowing(shouldShowBack);
-		cardBack.setVisibility(cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
-		cardFront.setVisibility(cardInfo.isBackShowing() ? View.GONE : View.VISIBLE);
+		viewHolder.getCardBack().setVisibility(
+				cardInfo.isBackShowing() ? View.VISIBLE : View.GONE);
+		viewHolder.getCardFront().setVisibility(
+				cardInfo.isBackShowing() ? View.GONE : View.VISIBLE);
 	}
 
 	private int getImageId() {
@@ -269,7 +268,7 @@ public class Card extends RelativeLayout implements AnimationListener {
 	public void onAnimationEnd(Animation animation) {
 		shouldShowBack(false);
 
-		cardFront.startAnimation(cardInAnimation);
+		viewHolder.getCardFront().startAnimation(cardInAnimation);
 
 	}
 
@@ -277,6 +276,29 @@ public class Card extends RelativeLayout implements AnimationListener {
 	public void onAnimationRepeat(Animation animation) {
 		// TODO Auto-generated method stub
 
+	}
+
+	private class ViewHolder {
+		private ImageView cardFront;
+		private ImageView cardBack;
+
+		public ViewHolder() {
+
+		}
+
+		public ImageView getCardFront() {
+			if (cardFront == null) {
+				cardFront = (ImageView) Card.this.findViewById(R.id.card_front);
+			}
+			return cardFront;
+		}
+
+		public ImageView getCardBack() {
+			if (cardBack == null) {
+				cardBack = (ImageView) Card.this.findViewById(R.id.card_back);
+			}
+			return cardBack;
+		}
 	}
 
 }
