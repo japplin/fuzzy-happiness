@@ -1,6 +1,6 @@
 package com.CardMemorizer.android;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,18 +14,18 @@ import android.widget.BaseAdapter;
 
 public class CardGridViewAdapter extends BaseAdapter {
 
-	private ArrayList<CardInfo> deck;
+	private List<CardInfo> deck;
 	private final Activity activity;
 	private DialogInterface.OnClickListener listener;
 
-	public CardGridViewAdapter(final Activity activity,
-			ArrayList<CardInfo> deck, DialogInterface.OnClickListener listener) {
+	public CardGridViewAdapter(final Activity activity, List<CardInfo> deck,
+			DialogInterface.OnClickListener listener) {
 		this.deck = deck;
 		this.activity = activity;
 		this.listener = listener;
 	}
 
-	public void setData(ArrayList<CardInfo> deck) {
+	public void setData(List<CardInfo> deck) {
 		this.deck = deck;
 		notifyDataSetChanged();
 	}

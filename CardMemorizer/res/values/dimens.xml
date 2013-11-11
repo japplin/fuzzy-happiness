@@ -5,5 +5,6 @@
 	<dimen name="activity_vertical_margin">16dp</dimen>
 	<dimen name="card_width">100dp</dimen>
 	<dimen name="card_height">138dp</dimen>
+	<dimen name="suit_selector_width">40dp</dimen>
 
 </resources>

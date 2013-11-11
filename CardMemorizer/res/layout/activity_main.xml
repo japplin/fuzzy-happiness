@@ -1,12 +1,80 @@
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/grid_view"
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:clipToPadding="false"
-	android:columnWidth="@dimen/card_width"
-	android:gravity="center"
-	android:horizontalSpacing="10dp"
-	android:numColumns="auto_fit"
-	android:stretchMode="columnWidth"
-	android:padding="10dp"
-	android:verticalSpacing="10dp" />
+	android:orientation="vertical" >
+
+	<GridView
+		android:id="@+id/grid_view"
+		android:layout_width="fill_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1.0"
+		android:clipToPadding="false"
+		android:columnWidth="@dimen/card_width"
+		android:gravity="center"
+		android:horizontalSpacing="10dp"
+		android:numColumns="auto_fit"
+		android:padding="10dp"
+		android:stretchMode="columnWidth"
+		android:verticalSpacing="10dp" />
+
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" >
+
+		<ImageView
+			android:id="@+id/spades"
+			android:layout_width="@dimen/suit_selector_width"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			android:layout_margin="5dp"
+			android:gravity="center"
+			android:scaleType="fitCenter"
+			android:src="@drawable/spades" >
+		</ImageView>
+
+		<ImageView
+			android:id="@+id/hearts"
+			android:layout_width="@dimen/suit_selector_width"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_margin="5dp"
+			android:layout_toRightOf="@id/spades"
+			android:gravity="center"
+			android:scaleType="fitCenter"
+			android:src="@drawable/hearts" >
+		</ImageView>
+
+		<ImageView
+			android:id="@+id/clubs"
+			android:layout_width="@dimen/suit_selector_width"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@id/hearts"
+			android:layout_below="@id/hearts"
+			android:layout_margin="5dp"
+			android:gravity="center"
+			android:scaleType="fitCenter"
+			android:src="@drawable/clubs" >
+		</ImageView>
+
+		<ImageView
+			android:id="@+id/diamonds"
+			android:layout_width="@dimen/suit_selector_width"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@id/spades"
+			android:layout_below="@id/spades"
+			android:layout_margin="5dp"
+			android:gravity="center"
+			android:scaleType="fitCenter"
+			android:src="@drawable/diamonds" >
+		</ImageView>
+
+		<com.CardMemorizer.android.HorizontalListView
+			android:id="@+id/card_selector"
+			android:layout_width="fill_parent"
+			android:layout_height="@dimen/card_height"
+			android:layout_toRightOf="@id/hearts" />
+	</RelativeLayout>
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.CardMemorizer.android;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import android.app.Activity;
@@ -11,14 +12,81 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.GridView;
+
+import com.CardMemorizer.android.Card.Rank;
+import com.CardMemorizer.android.Card.Suit;
 
 public class MainActivity extends Activity implements GuessesLeft {
 
 	public static final String DECK_INFO = "DECK_INFO";
 	public static final String LEVEL_INFO = "LEVEL_INFO";
+	public static final CardInfo[] SPADES = new CardInfo[] {
+			new CardInfo(Suit.spades, Rank.ace, false),
+			new CardInfo(Suit.spades, Rank.two, false),
+			new CardInfo(Suit.spades, Rank.three, false),
+			new CardInfo(Suit.spades, Rank.four, false),
+			new CardInfo(Suit.spades, Rank.five, false),
+			new CardInfo(Suit.spades, Rank.six, false),
+			new CardInfo(Suit.spades, Rank.seven, false),
+			new CardInfo(Suit.spades, Rank.eight, false),
+			new CardInfo(Suit.spades, Rank.nine, false),
+			new CardInfo(Suit.spades, Rank.ten, false),
+			new CardInfo(Suit.spades, Rank.jack, false),
+			new CardInfo(Suit.spades, Rank.queen, false),
+			new CardInfo(Suit.spades, Rank.king, false) };
+
+	public static final CardInfo[] HEARTS = new CardInfo[] {
+			new CardInfo(Suit.hearts, Rank.ace, false),
+			new CardInfo(Suit.hearts, Rank.two, false),
+			new CardInfo(Suit.hearts, Rank.three, false),
+			new CardInfo(Suit.hearts, Rank.four, false),
+			new CardInfo(Suit.hearts, Rank.five, false),
+			new CardInfo(Suit.hearts, Rank.six, false),
+			new CardInfo(Suit.hearts, Rank.seven, false),
+			new CardInfo(Suit.hearts, Rank.eight, false),
+			new CardInfo(Suit.hearts, Rank.nine, false),
+			new CardInfo(Suit.hearts, Rank.ten, false),
+			new CardInfo(Suit.hearts, Rank.jack, false),
+			new CardInfo(Suit.hearts, Rank.queen, false),
+			new CardInfo(Suit.hearts, Rank.king, false) };
+
+	public static final CardInfo[] CLUBS = new CardInfo[] {
+			new CardInfo(Suit.clubs, Rank.ace, false),
+			new CardInfo(Suit.clubs, Rank.two, false),
+			new CardInfo(Suit.clubs, Rank.three, false),
+			new CardInfo(Suit.clubs, Rank.four, false),
+			new CardInfo(Suit.clubs, Rank.five, false),
+			new CardInfo(Suit.clubs, Rank.six, false),
+			new CardInfo(Suit.clubs, Rank.seven, false),
+			new CardInfo(Suit.clubs, Rank.eight, false),
+			new CardInfo(Suit.clubs, Rank.nine, false),
+			new CardInfo(Suit.clubs, Rank.ten, false),
+			new CardInfo(Suit.clubs, Rank.jack, false),
+			new CardInfo(Suit.clubs, Rank.queen, false),
+			new CardInfo(Suit.clubs, Rank.king, false) };
+
+	public static final CardInfo[] DIAMONDS = new CardInfo[] {
+			new CardInfo(Suit.diamonds, Rank.ace, false),
+			new CardInfo(Suit.diamonds, Rank.two, false),
+			new CardInfo(Suit.diamonds, Rank.three, false),
+			new CardInfo(Suit.diamonds, Rank.four, false),
+			new CardInfo(Suit.diamonds, Rank.five, false),
+			new CardInfo(Suit.diamonds, Rank.six, false),
+			new CardInfo(Suit.diamonds, Rank.seven, false),
+			new CardInfo(Suit.diamonds, Rank.eight, false),
+			new CardInfo(Suit.diamonds, Rank.nine, false),
+			new CardInfo(Suit.diamonds, Rank.ten, false),
+			new CardInfo(Suit.diamonds, Rank.jack, false),
+			new CardInfo(Suit.diamonds, Rank.queen, false),
+			new CardInfo(Suit.diamonds, Rank.king, false) };
+
 	private GridView gridView;
 	private CardGridViewAdapter adapter;
+	private HorizontalListView cardSelector;
+	private CardGridViewAdapter cardSelctorAdapter;
 	private MenuItem playButton;
 	private Menu menu;
 
@@ -33,54 +101,103 @@ public class MainActivity extends Activity implements GuessesLeft {
 		setContentView(R.layout.activity_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		Intent intent = getIntent();
-		this.level = LevelHolder.getInstance().getLevel(intent.getIntExtra(LEVEL_INFO, LevelHolder.CUSTOM_GAME));
+		this.level = LevelHolder.getInstance().getLevel(
+				intent.getIntExtra(LEVEL_INFO, LevelHolder.CUSTOM_GAME));
 		if (level == null) {
-			getActionBar().setTitle(getResources().getString(R.string.custom_game));
+			getActionBar().setTitle(
+					getResources().getString(R.string.custom_game));
 		} else {
-			getActionBar().setTitle(getResources().getString(R.string.level) + " " + level.getLevelId());
+			getActionBar().setTitle(
+					getResources().getString(R.string.level) + " "
+							+ level.getLevelId());
 		}
 		CardMemorizerSavedState.getInstance().setIsRunning(false);
 		CardMemorizerSavedState.getInstance().registerListener(this);
-		gridView = ((GridView) findViewById(R.id.grid_view));
 
+		gridView = ((GridView) findViewById(R.id.grid_view));
+		cardSelector = (HorizontalListView) findViewById(R.id.card_selector);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
 		if (deck == null) {
 			deck = intent.getParcelableArrayListExtra(DECK_INFO);
 		}
-
-		adapter = new CardGridViewAdapter(this, deck, new DialogInterface.OnClickListener() {
+		cardSelctorAdapter = new CardGridViewAdapter(MainActivity.this,
+				Arrays.asList(SPADES), null);
+		OnClickListener suitSelectorOnClickListener = new OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				CardSelectionDialog selectionDialog = (CardSelectionDialog) dialog;
-				if (which == AlertDialog.BUTTON_POSITIVE) {
-					if (selectionDialog.isSelectedCard()) {
-						selectionDialog.flipCard();
-						CardMemorizerSavedState.getInstance().setCorrectGuesses(CardMemorizerSavedState.getInstance().getCorrectGuesses() + 1);
+			public void onClick(View v) {
+				switch (v.getId()) {
+				case R.id.spades:
+					setSelectedSuit(Suit.spades);
+					break;
+				case R.id.hearts:
+					setSelectedSuit(Suit.hearts);
+					break;
+				case R.id.clubs:
+					setSelectedSuit(Suit.clubs);
+					break;
+				case R.id.diamonds:
+					setSelectedSuit(Suit.diamonds);
+					break;
+				}
+			}
+		};
+		findViewById(R.id.spades).setOnClickListener(
+				suitSelectorOnClickListener);
+		findViewById(R.id.hearts).setOnClickListener(
+				suitSelectorOnClickListener);
+		findViewById(R.id.clubs)
+				.setOnClickListener(suitSelectorOnClickListener);
+		findViewById(R.id.diamonds).setOnClickListener(
+				suitSelectorOnClickListener);
+		adapter = new CardGridViewAdapter(this, deck,
+				new DialogInterface.OnClickListener() {
 
-						if (CardMemorizerSavedState.getInstance().getCorrectGuesses() == CardMemorizerSavedState.getInstance().getCurLevelDeckSize()) {
-							level.setLevelCompleted();
-							createGameOverDialog(true).show();
-						}
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						CardSelectionDialog selectionDialog = (CardSelectionDialog) dialog;
+						if (which == AlertDialog.BUTTON_POSITIVE) {
+							if (selectionDialog.isSelectedCard()) {
+								selectionDialog.flipCard();
+								CardMemorizerSavedState
+										.getInstance()
+										.setCorrectGuesses(
+												CardMemorizerSavedState
+														.getInstance()
+														.getCorrectGuesses() + 1);
 
-					} else {
-						selectionDialog.shakeCard();
-						if (!(CardMemorizerSavedState.getInstance().getGuessesLeft() == -2)) {
-							CardMemorizerSavedState.getInstance().setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
+								if (CardMemorizerSavedState.getInstance()
+										.getCorrectGuesses() == CardMemorizerSavedState
+										.getInstance().getCurLevelDeckSize()) {
+									level.setLevelCompleted();
+									createGameOverDialog(true).show();
+								}
 
-							if (CardMemorizerSavedState.getInstance().getGuessesLeft() == 0) {
-								createGameOverDialog(false).show();
+							} else {
+								selectionDialog.shakeCard();
+								if (!(CardMemorizerSavedState.getInstance()
+										.getGuessesLeft() == -2)) {
+									CardMemorizerSavedState
+											.getInstance()
+											.setGuessesLeft(
+													CardMemorizerSavedState
+															.getInstance()
+															.getGuessesLeft() - 1);
+
+									if (CardMemorizerSavedState.getInstance()
+											.getGuessesLeft() == 0) {
+										createGameOverDialog(false).show();
+									}
+								}
 							}
 						}
+						dialog.dismiss();
 					}
-				}
-				dialog.dismiss();
-			}
-		});
+				});
 		gridView.setAdapter(adapter);
-
+		cardSelector.setAdapter(cardSelctorAdapter);
 	}
 
 	@Override
@@ -89,7 +206,8 @@ public class MainActivity extends Activity implements GuessesLeft {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.game_options_menu, menu);
 		playButton = menu.findItem(R.id.start_game);
-		CardMemorizerSavedState.getInstance().registerListener((GuessesLeft) menu.findItem(R.id.guesses).getActionView());
+		CardMemorizerSavedState.getInstance().registerListener(
+				(GuessesLeft) menu.findItem(R.id.guesses).getActionView());
 		this.menu = menu;
 		menu.getItem(1).setVisible(false);
 		menu.getItem(2).setVisible(false);
@@ -100,14 +218,18 @@ public class MainActivity extends Activity implements GuessesLeft {
 	private AlertDialog createGameOverDialog(final boolean winner) {
 		AlertDialog gameOverDialog = new AlertDialog.Builder(this).create();
 		gameOverDialog.setTitle(level.getLevelId() + "");
-		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE, winner ? getResources().getString(R.string.next_level) : getResources().getString(R.string.restart),
+		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+				winner ? getResources().getString(R.string.next_level)
+						: getResources().getString(R.string.restart),
 				new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (winner) {
-							Level nextLevel = LevelHolder.getInstance().getLevel(level.getLevelId() + 1);
-							CardMemorizerSavedState.getInstance().loadLevel(nextLevel, MainActivity.this);
+							Level nextLevel = LevelHolder.getInstance()
+									.getLevel(level.getLevelId() + 1);
+							CardMemorizerSavedState.getInstance().loadLevel(
+									nextLevel, MainActivity.this);
 							MainActivity.this.finish();
 						} else {
 							MainActivity.this.restartGame();
@@ -115,7 +237,9 @@ public class MainActivity extends Activity implements GuessesLeft {
 					}
 
 				});
-		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE, winner ? getResources().getString(R.string.main_menu) : getResources().getString(R.string.restart),
+		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE,
+				winner ? getResources().getString(R.string.main_menu)
+						: getResources().getString(R.string.restart),
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -138,6 +262,26 @@ public class MainActivity extends Activity implements GuessesLeft {
 		CardMemorizerSavedState.getInstance().setGuessesLeft(0);
 
 		playButton.setIcon(R.drawable.ic_action_play);
+	}
+
+	public void setSelectedSuit(Suit suit) {
+		switch (suit) {
+		case clubs:
+			cardSelctorAdapter.setData(Arrays.asList(CLUBS));
+			break;
+		case diamonds:
+			cardSelctorAdapter.setData(Arrays.asList(DIAMONDS));
+			break;
+		case hearts:
+			cardSelctorAdapter.setData(Arrays.asList(HEARTS));
+			break;
+		case spades:
+			cardSelctorAdapter.setData(Arrays.asList(SPADES));
+			break;
+		default:
+			break;
+		}
+
 	}
 
 	@Override
@@ -171,7 +315,8 @@ public class MainActivity extends Activity implements GuessesLeft {
 				item.setIcon(R.drawable.ic_action_refresh);
 				adapter.notifyDataSetChanged();
 				if (level != null) {
-					CardMemorizerSavedState.getInstance().setGuessesLeft(level.getGuesses());
+					CardMemorizerSavedState.getInstance().setGuessesLeft(
+							level.getGuesses());
 				}
 			} else {
 				restartGame();
@@ -180,10 +325,12 @@ public class MainActivity extends Activity implements GuessesLeft {
 		case android.R.id.home:
 			if (level == null) {
 				CardMemorizerSavedState.getInstance().setIsRunning(false);
-				NavigationHelper.getInstance().goToCustomGameCreation(MainActivity.this);
+				NavigationHelper.getInstance().goToCustomGameCreation(
+						MainActivity.this);
 			} else {
 				CardMemorizerSavedState.getInstance().setIsRunning(false);
-				NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
+				NavigationHelper.getInstance().goToLevelBrowserActivity(
+						MainActivity.this);
 			}
 			return true;
 		}
@@ -195,10 +342,12 @@ public class MainActivity extends Activity implements GuessesLeft {
 	public void onBackPressed() {
 		if (level == null) {
 			CardMemorizerSavedState.getInstance().setIsRunning(false);
-			NavigationHelper.getInstance().goToCustomGameCreation(MainActivity.this);
+			NavigationHelper.getInstance().goToCustomGameCreation(
+					MainActivity.this);
 		} else {
 			CardMemorizerSavedState.getInstance().setIsRunning(false);
-			NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
+			NavigationHelper.getInstance().goToLevelBrowserActivity(
+					MainActivity.this);
 		}
 	}
 
