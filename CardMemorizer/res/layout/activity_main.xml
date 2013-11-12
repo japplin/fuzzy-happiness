@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical" >
@@ -23,12 +24,22 @@
 		android:layout_height="wrap_content"
 		android:background="@color/Gray" >
 
+		<com.google.ads.AdView
+			android:id="@+id/ad_view"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			ads:adSize="SMART_BANNER"
+			ads:adUnitId="ca-app-pub-3369624074196467/9418052431"
+			ads:loadAdOnCreate="true"
+			ads:testDevices="02c1bf11f0a699af" />
+
 		<ImageView
 			android:id="@+id/spades"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
 			android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true"
+			android:layout_below="@id/ad_view"
 			android:layout_margin="5dp"
 			android:gravity="center"
 			android:scaleType="fitCenter"
@@ -39,7 +50,7 @@
 			android:id="@+id/hearts"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
+			android:layout_below="@id/ad_view"
 			android:layout_margin="5dp"
 			android:layout_toRightOf="@id/spades"
 			android:gravity="center"
@@ -51,7 +62,7 @@
 			android:id="@+id/clubs"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
+			android:layout_below="@id/ad_view"
 			android:layout_margin="5dp"
 			android:layout_toRightOf="@id/hearts"
 			android:gravity="center"
@@ -63,7 +74,7 @@
 			android:id="@+id/diamonds"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
+			android:layout_below="@id/ad_view"
 			android:layout_margin="5dp"
 			android:layout_toRightOf="@id/clubs"
 			android:gravity="center"
