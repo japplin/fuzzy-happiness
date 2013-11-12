@@ -20,7 +20,8 @@
 
 	<RelativeLayout
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" >
+		android:layout_height="wrap_content"
+		android:background="@color/Gray" >
 
 		<ImageView
 			android:id="@+id/spades"
@@ -50,9 +51,9 @@
 			android:id="@+id/clubs"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_alignLeft="@id/hearts"
-			android:layout_below="@id/hearts"
+			android:layout_alignParentTop="true"
 			android:layout_margin="5dp"
+			android:layout_toRightOf="@id/hearts"
 			android:gravity="center"
 			android:scaleType="fitCenter"
 			android:src="@drawable/clubs" >
@@ -62,19 +63,29 @@
 			android:id="@+id/diamonds"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_alignLeft="@id/spades"
-			android:layout_below="@id/spades"
+			android:layout_alignParentTop="true"
 			android:layout_margin="5dp"
+			android:layout_toRightOf="@id/clubs"
 			android:gravity="center"
 			android:scaleType="fitCenter"
 			android:src="@drawable/diamonds" >
 		</ImageView>
 
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_alignBottom="@id/diamonds"
+			android:layout_alignTop="@id/diamonds"
+			android:layout_toRightOf="@id/diamonds"
+			android:text="@string/select" />
+
 		<com.CardMemorizer.android.HorizontalListView
 			android:id="@+id/card_selector"
 			android:layout_width="fill_parent"
 			android:layout_height="@dimen/card_height"
-			android:layout_toRightOf="@id/hearts" />
+			android:layout_alignParentLeft="true"
+			android:layout_below="@id/spades"
+			android:layout_marginBottom="@dimen/card_selector_height" />
 	</RelativeLayout>
 
 </LinearLayout>
