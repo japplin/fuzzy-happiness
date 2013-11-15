@@ -101,6 +101,10 @@ public class Card extends RelativeLayout implements AnimationListener {
 		return cardInfo.getSuit();
 	}
 
+	public boolean isBackShowing() {
+		return cardInfo.isBackShowing();
+	}
+
 	public void shouldShowBack(boolean shouldShowBack) {
 		cardInfo.isBackShowing(shouldShowBack);
 		viewHolder.getCardBack().setVisibility(
@@ -276,6 +280,16 @@ public class Card extends RelativeLayout implements AnimationListener {
 	public void onAnimationRepeat(Animation animation) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Card) {
+			Card card = (Card) o;
+			return card.getImageId() == getImageId();
+
+		}
+		return false;
 	}
 
 	private class ViewHolder {

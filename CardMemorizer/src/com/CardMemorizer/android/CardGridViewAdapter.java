@@ -3,10 +3,7 @@ package com.CardMemorizer.android;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +13,11 @@ public class CardGridViewAdapter extends BaseAdapter {
 
 	private List<CardInfo> deck;
 	private final Activity activity;
-	private DialogInterface.OnClickListener listener;
+	private Card selectedCard;
 
-	public CardGridViewAdapter(final Activity activity, List<CardInfo> deck,
-			DialogInterface.OnClickListener listener) {
+	public CardGridViewAdapter(final Activity activity, List<CardInfo> deck) {
 		this.deck = deck;
 		this.activity = activity;
-		this.listener = listener;
 	}
 
 	public void setData(List<CardInfo> deck) {
@@ -45,14 +40,22 @@ public class CardGridViewAdapter extends BaseAdapter {
 		return -1l;
 	}
 
+	public Card getSelectedCard() {
+		return selectedCard;
+	}
+
+	public void setSelectedCard(Card card) {
+		selectedCard = card;
+		selectedCard.setSelected(true);
+	}
+
 	@Override
 	public Card getView(final int position, View convertView, ViewGroup parent) {
 		final Card card;
 		final CardInfo cardInfo = getItem(position);
 
 		if (convertView == null) {
-			LayoutInflater inflater = (LayoutInflater) activity
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			card = (Card) inflater.inflate(R.layout.card, parent, false);
 		} else {
 			card = (Card) convertView;
@@ -62,16 +65,11 @@ public class CardGridViewAdapter extends BaseAdapter {
 		card.setOnClickListener(new android.view.View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (cardInfo.isBackShowing()) {
-					AlertDialog alertDialog = new CardSelectionDialog(activity,
-							card);
-					Resources r = activity.getResources();
-					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,
-							r.getString(R.string.select), listener);
-					alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,
-							r.getString(R.string.cancel), listener);
-					alertDialog.show();
+				Card card = (Card) v;
+				if (selectedCard != null) {
+					selectedCard.setSelected(false);
 				}
+				setSelectedCard(card);
 			}
 		});
 		return card;

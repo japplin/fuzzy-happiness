@@ -83,6 +83,7 @@
 		</ImageView>
 
 		<Button
+			android:id="@+id/select"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			android:layout_alignBottom="@id/diamonds"
