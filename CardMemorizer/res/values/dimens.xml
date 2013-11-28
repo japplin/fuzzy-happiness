@@ -7,5 +7,6 @@
 	<dimen name="card_height">138dp</dimen>
 	<dimen name="card_selector_height">-69dp</dimen>
 	<dimen name="suit_selector_width">50dp</dimen>
+	<dimen name="divider_height">3dp</dimen>
 
 </resources>

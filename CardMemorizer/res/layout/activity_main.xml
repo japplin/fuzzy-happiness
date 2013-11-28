@@ -5,6 +5,22 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical" >
 
+	<com.google.ads.AdView
+		android:id="@+id/ad_view"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		ads:adSize="SMART_BANNER"
+		ads:adUnitId="ca-app-pub-3369624074196467/9418052431"
+		ads:loadAdOnCreate="true"
+		ads:testDevices="02c1bf11f0a699af"
+		android:visibility="gone" />
+
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="@dimen/divider_height"
+		android:background="@color/black" />
+
 	<GridView
 		android:id="@+id/grid_view"
 		android:layout_width="fill_parent"
@@ -22,65 +38,51 @@
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/Gray" >
+		android:background="@color/gray" >
 
-		<com.google.ads.AdView
-			android:id="@+id/ad_view"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
-			ads:adSize="SMART_BANNER"
-			ads:adUnitId="ca-app-pub-3369624074196467/9418052431"
-			ads:loadAdOnCreate="true"
-			ads:testDevices="02c1bf11f0a699af" />
-
-		<ImageView
+		<ImageButton
 			android:id="@+id/spades"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
 			android:layout_alignParentLeft="true"
-			android:layout_below="@id/ad_view"
-			android:layout_margin="5dp"
+			android:layout_alignParentTop="true"
+			android:background="@drawable/suit_selector_bg"
 			android:gravity="center"
 			android:scaleType="fitCenter"
-			android:src="@drawable/spades" >
-		</ImageView>
+			android:src="@drawable/spades" />
 
-		<ImageView
+		<ImageButton
 			android:id="@+id/hearts"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/ad_view"
-			android:layout_margin="5dp"
+			android:layout_alignParentTop="true"
 			android:layout_toRightOf="@id/spades"
+			android:background="@drawable/suit_selector_bg"
 			android:gravity="center"
 			android:scaleType="fitCenter"
-			android:src="@drawable/hearts" >
-		</ImageView>
+			android:src="@drawable/hearts" />
 
-		<ImageView
+		<ImageButton
 			android:id="@+id/clubs"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/ad_view"
-			android:layout_margin="5dp"
+			android:layout_alignParentTop="true"
 			android:layout_toRightOf="@id/hearts"
+			android:background="@drawable/suit_selector_bg"
 			android:gravity="center"
 			android:scaleType="fitCenter"
-			android:src="@drawable/clubs" >
-		</ImageView>
+			android:src="@drawable/clubs" />
 
-		<ImageView
+		<ImageButton
 			android:id="@+id/diamonds"
 			android:layout_width="@dimen/suit_selector_width"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/ad_view"
-			android:layout_margin="5dp"
+			android:layout_alignParentTop="true"
 			android:layout_toRightOf="@id/clubs"
+			android:background="@drawable/suit_selector_bg"
 			android:gravity="center"
 			android:scaleType="fitCenter"
-			android:src="@drawable/diamonds" >
-		</ImageView>
+			android:src="@drawable/diamonds" />
 
 		<Button
 			android:id="@+id/select"
@@ -89,6 +91,7 @@
 			android:layout_alignBottom="@id/diamonds"
 			android:layout_alignTop="@id/diamonds"
 			android:layout_toRightOf="@id/diamonds"
+			android:background="@drawable/suit_selector_bg"
 			android:text="@string/select" />
 
 		<com.CardMemorizer.android.HorizontalListView

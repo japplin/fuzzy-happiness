@@ -159,5 +159,6 @@
 	<color name="Black">#000000</color>
 	<color name="LightRed">#FF4444</color>
 	<color name="pressed_cardmemorizer">#CC764141</color>
+	<color name="AlmostBlack">#e8e8e8</color>
 
 </resources>
