@@ -18,6 +18,7 @@ import android.widget.GridView;
 
 import com.CardMemorizer.android.Card.Rank;
 import com.CardMemorizer.android.Card.Suit;
+import com.CardMemorizer.android.Adapters.CardGridViewAdapter;
 
 public class MainActivity extends Activity implements GuessesLeft {
 

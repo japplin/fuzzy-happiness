@@ -1,4 +1,4 @@
-package com.CardMemorizer.android;
+package com.CardMemorizer.android.Adapters;
 
 import java.util.List;
 
@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.CardMemorizer.android.Card;
+import com.CardMemorizer.android.CardInfo;
+import com.CardMemorizer.android.R;
 
 public class CardGridViewAdapter extends BaseAdapter {
 

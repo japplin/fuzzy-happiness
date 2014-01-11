@@ -1,9 +1,12 @@
-package com.CardMemorizer.android;
+package com.CardMemorizer.android.MainNavigation;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.CardMemorizer.android.NavigationHelper;
+import com.CardMemorizer.android.R;
 
 public class AboutPage extends Activity {
 	ActionBar actionBar;

@@ -3,6 +3,11 @@ package com.CardMemorizer.android;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.CardMemorizer.android.MainNavigation.AboutPage;
+import com.CardMemorizer.android.MainNavigation.CustomGameCreation;
+import com.CardMemorizer.android.MainNavigation.HomeActivity;
+import com.CardMemorizer.android.MainNavigation.LevelBrowserFragment;
+
 public class NavigationHelper {
 
 	private static NavigationHelper instance;
@@ -25,7 +30,7 @@ public class NavigationHelper {
 	}
 
 	public void goToLevelBrowserActivity(Activity activity) {
-		Intent intent = new Intent(activity, LevelBrowser.class);
+		Intent intent = new Intent(activity, LevelBrowserFragment.class);
 		activity.startActivity(intent);
 		activity.finish();
 	}

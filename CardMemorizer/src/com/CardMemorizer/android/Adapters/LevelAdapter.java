@@ -1,4 +1,4 @@
-package com.CardMemorizer.android;
+package com.CardMemorizer.android.Adapters;
 
 import java.util.ArrayList;
 
@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.CardMemorizer.android.CardMemorizerSavedState;
+import com.CardMemorizer.android.Level;
+import com.CardMemorizer.android.R;
 
 public class LevelAdapter extends BaseAdapter {
 
