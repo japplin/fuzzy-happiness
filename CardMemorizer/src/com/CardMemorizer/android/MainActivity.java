@@ -24,36 +24,28 @@ public class MainActivity extends Activity implements GuessesLeft {
 
 	public static final String DECK_INFO = "DECK_INFO";
 	public static final String LEVEL_INFO = "LEVEL_INFO";
-	public static final CardInfo[] SPADES = new CardInfo[] { new CardInfo(Suit.spades, Rank.ace, false),
-			new CardInfo(Suit.spades, Rank.two, false), new CardInfo(Suit.spades, Rank.three, false),
-			new CardInfo(Suit.spades, Rank.four, false), new CardInfo(Suit.spades, Rank.five, false),
-			new CardInfo(Suit.spades, Rank.six, false), new CardInfo(Suit.spades, Rank.seven, false),
-			new CardInfo(Suit.spades, Rank.eight, false), new CardInfo(Suit.spades, Rank.nine, false),
-			new CardInfo(Suit.spades, Rank.ten, false), new CardInfo(Suit.spades, Rank.jack, false),
+	public static final CardInfo[] SPADES = new CardInfo[] { new CardInfo(Suit.spades, Rank.ace, false), new CardInfo(Suit.spades, Rank.two, false),
+			new CardInfo(Suit.spades, Rank.three, false), new CardInfo(Suit.spades, Rank.four, false), new CardInfo(Suit.spades, Rank.five, false),
+			new CardInfo(Suit.spades, Rank.six, false), new CardInfo(Suit.spades, Rank.seven, false), new CardInfo(Suit.spades, Rank.eight, false),
+			new CardInfo(Suit.spades, Rank.nine, false), new CardInfo(Suit.spades, Rank.ten, false), new CardInfo(Suit.spades, Rank.jack, false),
 			new CardInfo(Suit.spades, Rank.queen, false), new CardInfo(Suit.spades, Rank.king, false) };
 
-	public static final CardInfo[] HEARTS = new CardInfo[] { new CardInfo(Suit.hearts, Rank.ace, false),
-			new CardInfo(Suit.hearts, Rank.two, false), new CardInfo(Suit.hearts, Rank.three, false),
-			new CardInfo(Suit.hearts, Rank.four, false), new CardInfo(Suit.hearts, Rank.five, false),
-			new CardInfo(Suit.hearts, Rank.six, false), new CardInfo(Suit.hearts, Rank.seven, false),
-			new CardInfo(Suit.hearts, Rank.eight, false), new CardInfo(Suit.hearts, Rank.nine, false),
-			new CardInfo(Suit.hearts, Rank.ten, false), new CardInfo(Suit.hearts, Rank.jack, false),
+	public static final CardInfo[] HEARTS = new CardInfo[] { new CardInfo(Suit.hearts, Rank.ace, false), new CardInfo(Suit.hearts, Rank.two, false),
+			new CardInfo(Suit.hearts, Rank.three, false), new CardInfo(Suit.hearts, Rank.four, false), new CardInfo(Suit.hearts, Rank.five, false),
+			new CardInfo(Suit.hearts, Rank.six, false), new CardInfo(Suit.hearts, Rank.seven, false), new CardInfo(Suit.hearts, Rank.eight, false),
+			new CardInfo(Suit.hearts, Rank.nine, false), new CardInfo(Suit.hearts, Rank.ten, false), new CardInfo(Suit.hearts, Rank.jack, false),
 			new CardInfo(Suit.hearts, Rank.queen, false), new CardInfo(Suit.hearts, Rank.king, false) };
 
-	public static final CardInfo[] CLUBS = new CardInfo[] { new CardInfo(Suit.clubs, Rank.ace, false),
-			new CardInfo(Suit.clubs, Rank.two, false), new CardInfo(Suit.clubs, Rank.three, false),
-			new CardInfo(Suit.clubs, Rank.four, false), new CardInfo(Suit.clubs, Rank.five, false),
-			new CardInfo(Suit.clubs, Rank.six, false), new CardInfo(Suit.clubs, Rank.seven, false),
-			new CardInfo(Suit.clubs, Rank.eight, false), new CardInfo(Suit.clubs, Rank.nine, false),
-			new CardInfo(Suit.clubs, Rank.ten, false), new CardInfo(Suit.clubs, Rank.jack, false),
+	public static final CardInfo[] CLUBS = new CardInfo[] { new CardInfo(Suit.clubs, Rank.ace, false), new CardInfo(Suit.clubs, Rank.two, false),
+			new CardInfo(Suit.clubs, Rank.three, false), new CardInfo(Suit.clubs, Rank.four, false), new CardInfo(Suit.clubs, Rank.five, false),
+			new CardInfo(Suit.clubs, Rank.six, false), new CardInfo(Suit.clubs, Rank.seven, false), new CardInfo(Suit.clubs, Rank.eight, false),
+			new CardInfo(Suit.clubs, Rank.nine, false), new CardInfo(Suit.clubs, Rank.ten, false), new CardInfo(Suit.clubs, Rank.jack, false),
 			new CardInfo(Suit.clubs, Rank.queen, false), new CardInfo(Suit.clubs, Rank.king, false) };
 
-	public static final CardInfo[] DIAMONDS = new CardInfo[] { new CardInfo(Suit.diamonds, Rank.ace, false),
-			new CardInfo(Suit.diamonds, Rank.two, false), new CardInfo(Suit.diamonds, Rank.three, false),
-			new CardInfo(Suit.diamonds, Rank.four, false), new CardInfo(Suit.diamonds, Rank.five, false),
-			new CardInfo(Suit.diamonds, Rank.six, false), new CardInfo(Suit.diamonds, Rank.seven, false),
-			new CardInfo(Suit.diamonds, Rank.eight, false), new CardInfo(Suit.diamonds, Rank.nine, false),
-			new CardInfo(Suit.diamonds, Rank.ten, false), new CardInfo(Suit.diamonds, Rank.jack, false),
+	public static final CardInfo[] DIAMONDS = new CardInfo[] { new CardInfo(Suit.diamonds, Rank.ace, false), new CardInfo(Suit.diamonds, Rank.two, false),
+			new CardInfo(Suit.diamonds, Rank.three, false), new CardInfo(Suit.diamonds, Rank.four, false), new CardInfo(Suit.diamonds, Rank.five, false),
+			new CardInfo(Suit.diamonds, Rank.six, false), new CardInfo(Suit.diamonds, Rank.seven, false), new CardInfo(Suit.diamonds, Rank.eight, false),
+			new CardInfo(Suit.diamonds, Rank.nine, false), new CardInfo(Suit.diamonds, Rank.ten, false), new CardInfo(Suit.diamonds, Rank.jack, false),
 			new CardInfo(Suit.diamonds, Rank.queen, false), new CardInfo(Suit.diamonds, Rank.king, false) };
 
 	private GridView gridView;
@@ -122,19 +114,16 @@ public class MainActivity extends Activity implements GuessesLeft {
 			public void onClick(View arg0) {
 				if (adapter.getSelectedCard().equals(cardSelctorAdapter.getSelectedCard())) {
 					adapter.getSelectedCard().flip();
-					CardMemorizerSavedState.getInstance().setCorrectGuesses(
-							CardMemorizerSavedState.getInstance().getCorrectGuesses() + 1);
+					CardMemorizerSavedState.getInstance().setCorrectGuesses(CardMemorizerSavedState.getInstance().getCorrectGuesses() + 1);
 
-					if (CardMemorizerSavedState.getInstance().getCorrectGuesses() == CardMemorizerSavedState.getInstance()
-							.getCurLevelDeckSize()) {
+					if (CardMemorizerSavedState.getInstance().getCorrectGuesses() == CardMemorizerSavedState.getInstance().getCurLevelDeckSize()) {
 						level.setLevelCompleted();
 						createGameOverDialog(true).show();
 					}
 				} else {
 					adapter.getSelectedCard().shake();
 					if (!(CardMemorizerSavedState.getInstance().getGuessesLeft() == -2)) {
-						CardMemorizerSavedState.getInstance()
-								.setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
+						CardMemorizerSavedState.getInstance().setGuessesLeft(CardMemorizerSavedState.getInstance().getGuessesLeft() - 1);
 
 						if (CardMemorizerSavedState.getInstance().getGuessesLeft() == 0) {
 							createGameOverDialog(false).show();
@@ -167,30 +156,30 @@ public class MainActivity extends Activity implements GuessesLeft {
 	private AlertDialog createGameOverDialog(final boolean winner) {
 		AlertDialog gameOverDialog = new AlertDialog.Builder(this).create();
 		gameOverDialog.setTitle(level.getLevelId() + "");
-		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE, winner ? getResources().getString(R.string.next_level) : getResources()
-				.getString(R.string.restart), new DialogInterface.OnClickListener() {
+		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE, winner ? getResources().getString(R.string.next_level) : getResources().getString(R.string.restart),
+				new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (winner) {
-					Level nextLevel = LevelHolder.getInstance().getLevel(level.getLevelId() + 1);
-					CardMemorizerSavedState.getInstance().loadLevel(nextLevel, MainActivity.this);
-					MainActivity.this.finish();
-				} else {
-					MainActivity.this.restartGame();
-				}
-			}
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (winner) {
+							Level nextLevel = LevelHolder.getInstance().getLevel(level.getLevelId() + 1);
+							CardMemorizerSavedState.getInstance().loadLevel(nextLevel, MainActivity.this);
+							MainActivity.this.finish();
+						} else {
+							MainActivity.this.restartGame();
+						}
+					}
 
-		});
-		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE, winner ? getResources().getString(R.string.main_menu) : getResources()
-				.getString(R.string.restart), new DialogInterface.OnClickListener() {
+				});
+		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE, winner ? getResources().getString(R.string.main_menu) : getResources().getString(R.string.restart),
+				new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				MainActivity.this.finish();
-			}
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						MainActivity.this.finish();
+					}
 
-		});
+				});
 
 		return gameOverDialog;
 	}
@@ -265,28 +254,13 @@ public class MainActivity extends Activity implements GuessesLeft {
 			}
 			return true;
 		case android.R.id.home:
-			if (level == null) {
-				CardMemorizerSavedState.getInstance().setIsRunning(false);
-				NavigationHelper.getInstance().goToCustomGameCreation(MainActivity.this);
-			} else {
-				CardMemorizerSavedState.getInstance().setIsRunning(false);
-				NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
-			}
+			CardMemorizerSavedState.getInstance().setIsRunning(false);
+			CardMemorizerSavedState.getInstance().setIsRunning(false);
+			finish();
 			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onBackPressed() {
-		if (level == null) {
-			CardMemorizerSavedState.getInstance().setIsRunning(false);
-			NavigationHelper.getInstance().goToCustomGameCreation(MainActivity.this);
-		} else {
-			CardMemorizerSavedState.getInstance().setIsRunning(false);
-			NavigationHelper.getInstance().goToLevelBrowserActivity(MainActivity.this);
-		}
 	}
 
 	@Override

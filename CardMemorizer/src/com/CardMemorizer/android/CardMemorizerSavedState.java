@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +25,7 @@ public class CardMemorizerSavedState {
 	private int curLevelDeckSize;
 	private HashSet<GuessesLeft> listeners;
 
+	@SuppressLint("UseSparseArrays")
 	HashMap<Integer, Bitmap> imageCache = new HashMap<Integer, Bitmap>();
 
 	public synchronized static CardMemorizerSavedState getInstance() {
