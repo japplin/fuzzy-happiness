@@ -3,16 +3,14 @@ package com.CardMemorizer.android.MainNavigation;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -25,7 +23,6 @@ import com.CardMemorizer.android.Card.Suit;
 import com.CardMemorizer.android.CardMemorizerSavedState;
 import com.CardMemorizer.android.Level;
 import com.CardMemorizer.android.MainActivity;
-import com.CardMemorizer.android.NavigationHelper;
 import com.CardMemorizer.android.R;
 
 public class CustomGameCreation extends Fragment {

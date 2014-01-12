@@ -3,7 +3,7 @@ package com.CardMemorizer.android;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.CardMemorizer.android.MainNavigation.AboutPage;
+import com.CardMemorizer.android.MainNavigation.HomeActivity;
 import com.CardMemorizer.android.MainNavigation.CustomGameCreation;
 import com.CardMemorizer.android.MainNavigation.HomeActivity;
 import com.CardMemorizer.android.MainNavigation.LevelBrowserFragment;
@@ -42,7 +42,7 @@ public class NavigationHelper {
 	}
 	
 	public void goToAboutPage(Activity activity) {
-		Intent intent = new Intent(activity, AboutPage.class);
+		Intent intent = new Intent(activity, HomeActivity.class);
 		activity.startActivity(intent);
 		activity.finish();
 	}
