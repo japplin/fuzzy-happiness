@@ -27,10 +27,15 @@ public class LevelBrowserFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		mAadapter = new LevelAdapter(getActivity(), LevelHolder.getInstance().getLevels());
-		mAadapter.setSetLevels(LevelHolder.getInstance().getLevels());
+		mAadapter = new LevelAdapter(getActivity());
 		mLevelGrid = (GridView) mLayout.findViewById(R.id.level_grid);
 		mLevelGrid.setAdapter(mAadapter);
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		mAadapter.setSetLevels(LevelHolder.getInstance().getLevels());
+	}
+	
 }

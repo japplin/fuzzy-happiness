@@ -54,6 +54,7 @@ public class MainActivity extends Activity implements GuessesLeft {
 	private CardGridViewAdapter cardSelctorAdapter;
 	private MenuItem playButton;
 	private Menu menu;
+	private View selectedView;
 
 	private Level level;
 	private ArrayList<CardInfo> deck;
@@ -88,6 +89,9 @@ public class MainActivity extends Activity implements GuessesLeft {
 
 			@Override
 			public void onClick(View v) {
+				selectedView.setSelected(false);
+				v.setSelected(true);
+				selectedView = v;
 				switch (v.getId()) {
 				case R.id.spades:
 					setSelectedSuit(Suit.spades);
@@ -104,7 +108,10 @@ public class MainActivity extends Activity implements GuessesLeft {
 				}
 			}
 		};
-		findViewById(R.id.spades).setOnClickListener(suitSelectorOnClickListener);
+		View spades = findViewById(R.id.spades);
+		selectedView = spades;
+		selectedView.setSelected(true);
+		spades.setOnClickListener(suitSelectorOnClickListener);
 		findViewById(R.id.hearts).setOnClickListener(suitSelectorOnClickListener);
 		findViewById(R.id.clubs).setOnClickListener(suitSelectorOnClickListener);
 		findViewById(R.id.diamonds).setOnClickListener(suitSelectorOnClickListener);

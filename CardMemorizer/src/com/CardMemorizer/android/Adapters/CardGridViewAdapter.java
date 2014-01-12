@@ -45,6 +45,8 @@ public class CardGridViewAdapter extends BaseAdapter {
 	}
 
 	public Card getSelectedCard() {
+		if (selectedCard == null) {
+		}
 		return selectedCard;
 	}
 
@@ -76,6 +78,9 @@ public class CardGridViewAdapter extends BaseAdapter {
 				setSelectedCard(card);
 			}
 		});
+		if (selectedCard == null) {
+			selectedCard = card;
+		}
 		return card;
 	}
 }

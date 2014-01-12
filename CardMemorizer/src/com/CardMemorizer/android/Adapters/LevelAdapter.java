@@ -21,8 +21,8 @@ public class LevelAdapter extends BaseAdapter {
 	private ArrayList<Level> levels;
 	private Activity activity;
 
-	public LevelAdapter(Activity activity, ArrayList<Level> levels) {
-		this.levels = levels;
+	public LevelAdapter(Activity activity) {
+		this.levels = new ArrayList<Level>();
 		this.activity = activity;
 	}
 

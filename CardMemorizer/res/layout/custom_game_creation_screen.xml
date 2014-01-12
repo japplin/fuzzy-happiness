@@ -1,277 +1,280 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-    
-    <TextView
-            android:id="@+id/pick_suit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_centerHorizontal="true"
-            android:text="@string/pick_suit"
-            android:textSize="16sp" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
 
-    <LinearLayout
-        android:id="@+id/suits_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dip"
-        android:orientation="horizontal" >
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" >
 
-        <CheckBox
-            android:id="@+id/chkhearts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-    		android:paddingRight="24dip"
-            android:drawableRight="@drawable/hearts" />
+		<TextView
+			android:id="@+id/pick_suit"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="7dp"
+			android:text="@string/pick_suit"
+			android:textSize="16sp" />
 
-        <CheckBox
-            android:id="@+id/chkdiamonds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:paddingRight="24dip"
-            android:drawableRight="@drawable/diamonds" />
+		<LinearLayout
+			android:id="@+id/suits_container"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="30dip"
+			android:orientation="horizontal" >
 
-        <CheckBox
-            android:id="@+id/chkclubs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:paddingRight="24dip"
-            android:drawableRight="@drawable/clubs" />
+			<CheckBox
+				android:id="@+id/chkhearts"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:drawableRight="@drawable/hearts"
+				android:paddingRight="24dip" />
 
-        <CheckBox
-            android:id="@+id/chkspades"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:paddingRight="24dip"
-            android:drawableRight="@drawable/spades" />
-    </LinearLayout>
-    
-    <TextView
-            android:id="@+id/pick_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_centerHorizontal="true"
-            android:text="@string/pick_rank"
-            android:layout_below="@id/suits_container"
-            android:textSize="16sp" />
+			<CheckBox
+				android:id="@+id/chkdiamonds"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:drawableRight="@drawable/diamonds"
+				android:paddingRight="24dip" />
 
-    <LinearLayout
-        android:id="@+id/rank_container_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dip"
-        android:layout_below="@id/pick_rank"
-        android:orientation="horizontal" >
+			<CheckBox
+				android:id="@+id/chkclubs"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:drawableRight="@drawable/clubs"
+				android:paddingRight="24dip" />
 
-        <CheckBox
-            android:id="@+id/ace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/ace" />
+			<CheckBox
+				android:id="@+id/chkspades"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:drawableRight="@drawable/spades"
+				android:paddingRight="24dip" />
+		</LinearLayout>
 
-        <CheckBox
-            android:id="@+id/two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/two" />
+		<TextView
+			android:id="@+id/pick_rank"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/suits_container"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="7dp"
+			android:text="@string/pick_rank"
+			android:textSize="16sp" />
 
-        <CheckBox
-            android:id="@+id/three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/three" />
+		<LinearLayout
+			android:id="@+id/rank_container_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/pick_rank"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="30dip"
+			android:orientation="horizontal" >
 
-        <CheckBox
-            android:id="@+id/four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/four" />
-        
-        <CheckBox
-            android:id="@+id/five"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/five" />
-    </LinearLayout>
+			<CheckBox
+				android:id="@+id/ace"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/ace"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/rank_container_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dip"
-        android:layout_below="@id/rank_container_1"
-        android:orientation="horizontal" >
+			<CheckBox
+				android:id="@+id/two"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/two"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/six"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/six" />
+			<CheckBox
+				android:id="@+id/three"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/three"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/seven"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/seven" />
+			<CheckBox
+				android:id="@+id/four"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/four"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/eight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/eight" />
-        
-        <CheckBox
-            android:id="@+id/nine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/nine" />
-    </LinearLayout>
+			<CheckBox
+				android:id="@+id/five"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/five"
+				android:textSize="22sp"
+				android:textStyle="bold" />
+		</LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/rank_container_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dip"
-        android:layout_below="@id/rank_container_2"
-        android:orientation="horizontal" >
+		<LinearLayout
+			android:id="@+id/rank_container_2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/rank_container_1"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="10dip"
+			android:orientation="horizontal" >
 
-        <CheckBox
-            android:id="@+id/ten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/ten" />
+			<CheckBox
+				android:id="@+id/six"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/six"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/jack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/jack" />
+			<CheckBox
+				android:id="@+id/seven"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/seven"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/queen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="8dip"
-            android:checked="false"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/queen" />
-        
-        <CheckBox
-        android:id="@+id/king"     
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingRight="8dip"
-        android:checked="false"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:text="@string/king" />      
-        
-    </LinearLayout>
-    
-    <TextView
-            android:id="@+id/pick_deck_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/rank_container_3"
-            android:text="@string/pick_deck_size"
-            android:textSize="16sp" />
+			<CheckBox
+				android:id="@+id/eight"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/eight"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/np_and_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dip"
-        android:layout_below="@id/pick_deck_size"
-        android:orientation="horizontal" >
+			<CheckBox
+				android:id="@+id/nine"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/nine"
+				android:textSize="22sp"
+				android:textStyle="bold" />
+		</LinearLayout>
 
-    <NumberPicker
-        android:id="@+id/np"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="100dip" />
+		<LinearLayout
+			android:id="@+id/rank_container_3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/rank_container_2"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="10dip"
+			android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/new_game"
-        android:layout_width="150dp"
-        android:layout_height="185dp"
-        android:layout_marginLeft="25dip"
-        android:text="@string/start" />
-    
-    </LinearLayout>
+			<CheckBox
+				android:id="@+id/ten"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/ten"
+				android:textSize="22sp"
+				android:textStyle="bold" />
 
-</RelativeLayout>
+			<CheckBox
+				android:id="@+id/jack"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/jack"
+				android:textSize="22sp"
+				android:textStyle="bold" />
+
+			<CheckBox
+				android:id="@+id/queen"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/queen"
+				android:textSize="22sp"
+				android:textStyle="bold" />
+
+			<CheckBox
+				android:id="@+id/king"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="false"
+				android:paddingRight="8dip"
+				android:text="@string/king"
+				android:textSize="22sp"
+				android:textStyle="bold" />
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/pick_deck_size"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/rank_container_3"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="7dp"
+			android:text="@string/pick_deck_size"
+			android:textSize="16sp" />
+
+		<LinearLayout
+			android:id="@+id/np_and_submit"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/pick_deck_size"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="30dip"
+			android:orientation="horizontal" >
+
+			<NumberPicker
+				android:id="@+id/np"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:width="100dip" />
+
+			<Button
+				android:id="@+id/new_game"
+				android:layout_width="150dp"
+				android:layout_height="185dp"
+				android:layout_marginLeft="25dip"
+				android:text="@string/start" />
+		</LinearLayout>
+	</RelativeLayout>
+
+</ScrollView>
