@@ -1,11 +1,12 @@
 package com.CardMemorizer.android.Adapters;
 
-import com.CardMemorizer.android.MainNavigation.CustomGameCreation;
-import com.CardMemorizer.android.MainNavigation.LevelBrowserFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.CardMemorizer.android.MainNavigation.AboutFragment;
+import com.CardMemorizer.android.MainNavigation.CustomGameCreation;
+import com.CardMemorizer.android.MainNavigation.LevelBrowserFragment;
 
 public class MainNavFragmentPagerAdapter extends FragmentPagerAdapter {
 
@@ -13,7 +14,7 @@ public class MainNavFragmentPagerAdapter extends FragmentPagerAdapter {
 
 	public MainNavFragmentPagerAdapter(FragmentManager fm) {
 		super(fm);
-		fragmentList = new Fragment[]{new LevelBrowserFragment(), new CustomGameCreation()};
+		fragmentList = new Fragment[] { new LevelBrowserFragment(), new CustomGameCreation(), new AboutFragment() };
 		
 	}
 

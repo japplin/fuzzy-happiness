@@ -58,5 +58,6 @@ public class HomeActivity extends FragmentActivity {
 		
 		actionBar.addTab(actionBar.newTab().setText(R.string.levels).setTabListener(tabListener));
 		actionBar.addTab(actionBar.newTab().setText(R.string.custom_game).setTabListener(tabListener));
+		actionBar.addTab(actionBar.newTab().setText(R.string.about).setTabListener(tabListener));
 	}
 }
