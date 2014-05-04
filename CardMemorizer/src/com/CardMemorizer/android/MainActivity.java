@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.CardMemorizer.android.Card.Rank;
@@ -55,7 +56,8 @@ public class MainActivity extends Activity implements GuessesLeft {
 	private MenuItem playButton;
 	private Menu menu;
 	private View selectedView;
-
+	private View cardSelectorContainer;
+	
 	private Level level;
 	private ArrayList<CardInfo> deck;
 
@@ -140,7 +142,8 @@ public class MainActivity extends Activity implements GuessesLeft {
 
 			}
 		});
-
+		cardSelectorContainer = findViewById(R.id.card_selector_container);
+		cardSelectorContainer.setVisibility(View.GONE);
 		adapter = new CardGridViewAdapter(this, deck);
 		gridView.setAdapter(adapter);
 		cardSelector.setAdapter(cardSelctorAdapter);
@@ -162,7 +165,6 @@ public class MainActivity extends Activity implements GuessesLeft {
 
 	private AlertDialog createGameOverDialog(final boolean winner) {
 		AlertDialog gameOverDialog = new AlertDialog.Builder(this).create();
-		gameOverDialog.setTitle(level.getLevelId() + "");
 		gameOverDialog.setButton(AlertDialog.BUTTON_POSITIVE, winner ? getResources().getString(R.string.next_level) : getResources().getString(R.string.restart),
 				new DialogInterface.OnClickListener() {
 
@@ -178,7 +180,7 @@ public class MainActivity extends Activity implements GuessesLeft {
 					}
 
 				});
-		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE, winner ? getResources().getString(R.string.main_menu) : getResources().getString(R.string.restart),
+		gameOverDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.main_menu),
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -187,7 +189,7 @@ public class MainActivity extends Activity implements GuessesLeft {
 					}
 
 				});
-
+		gameOverDialog.setCancelable(false);
 		return gameOverDialog;
 	}
 
@@ -201,6 +203,7 @@ public class MainActivity extends Activity implements GuessesLeft {
 		CardMemorizerSavedState.getInstance().setGuessesLeft(0);
 
 		playButton.setIcon(R.drawable.ic_action_play);
+		cardSelectorContainer.setVisibility(View.GONE);
 	}
 
 	public void setSelectedSuit(Suit suit) {
@@ -256,12 +259,13 @@ public class MainActivity extends Activity implements GuessesLeft {
 				if (level != null) {
 					CardMemorizerSavedState.getInstance().setGuessesLeft(level.getGuesses());
 				}
+
+				cardSelectorContainer.setVisibility(View.VISIBLE);
 			} else {
 				restartGame();
 			}
 			return true;
 		case android.R.id.home:
-			CardMemorizerSavedState.getInstance().setIsRunning(false);
 			CardMemorizerSavedState.getInstance().setIsRunning(false);
 			finish();
 			return true;
